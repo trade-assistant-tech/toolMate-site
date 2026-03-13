@@ -1493,19 +1493,18 @@
 
     var dialCode = document.getElementById('field-dialcode').value.split('-')[0]; // strip -CA etc
     var number = document.getElementById('field-whatsapp').value.trim().replace(/^0/, ''); // strip leading 0
-    var payload = {
-      pain_points: document.getElementById('field-pain').value,
-      email:       document.getElementById('field-email').value,
-      whatsapp:    dialCode + number,
-      submitted_at: new Date().toISOString()
-    };
+    var painPoints = document.getElementById('field-pain').value;
+    var email = document.getElementById('field-email').value;
+    var whatsapp = dialCode + number;
 
-    /* Set window.TOOLMATE_WEBHOOK_URL before this script (e.g. via server-side template injection
-       or a preceding <script> tag) to enable form submission. If not set, submissions are
-       logged to the console only — no waitlist data will be captured. */
-    var webhookUrl = window.TOOLMATE_WEBHOOK_URL || null;
+    if (typeof umami !== 'undefined') umami.track('waitlist-form-submit', { pain_points: painPoints });
 
-    if (typeof umami !== 'undefined') umami.track('waitlist-form-submit', { pain_points: payload.pain_points });
+    /* Submit to Google Forms */
+    var googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfUnwutdWG-Im43lhetdM2qIThWOhgDtgSxLClAc7p7OJsvBQ/formResponse';
+    var formData = new URLSearchParams();
+    formData.append('entry.253331090', painPoints);
+    formData.append('entry.1175565556', email);
+    formData.append('entry.1646533271', whatsapp);
 
     var done = function() {
       formState.style.display = 'none';
@@ -1514,21 +1513,17 @@
       document.getElementById('share-btn').href = 'https://wa.me/?text=' + shareText;
     };
 
-    if (webhookUrl) {
-      fetch(webhookUrl, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload)
-      })
-        .then(done)
-        .catch(function(err) {
-          console.error('Webhook error:', err);
-          done(); // still show success to user
-        });
-    } else {
-      console.log('Waitlist submission (no webhook configured):', payload);
-      setTimeout(done, 600);
-    }
+    fetch(googleFormUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    })
+      .then(done)
+      .catch(function(err) {
+        console.error('Form submission error:', err);
+        done(); // still show success — Google Forms no-cors won't return a readable response
+      });
   });
 </script>
 
