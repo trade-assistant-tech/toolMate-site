@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+  <title>ToolMate — AI Assistant for UK Tradespeople</title>
+  <meta name="description" content="ToolMate handles every text enquiry, quote, and follow-up for UK tradespeople. You review and approve from WhatsApp. Join the waitlist free."/>
+  <meta property="og:title" content="ToolMate — AI Assistant for UK Tradespeople"/>
+  <meta property="og:description" content="Your craft. Our admin."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://toolmate.co.uk"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ToolMate — AI Assistant for UK Tradespeople"/>
+  <meta name="twitter:description" content="Your craft. Our admin. Handles every enquiry, quote, and follow-up via WhatsApp."/>
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="0bb7e7b9-8dc4-45f4-bb31-88a8cdf9a823"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow+Condensed:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --volt:       #EAB308;
+      --volt-dk:    #CA8A04;
+      --teal:       #0D9488;
+      --bg:         #0C0C0B;
+      --surface:    #141413;
+      --surface-2:  #1E1E1C;
+      --text:       #F5F3EE;
+      --text-2:     #A09C96;
+      --muted:      #5A5752;
+      --border:     rgba(255,255,255,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.5);
+    }
+    [data-theme="light"] {
+      --bg:         #F5F3EE;
+      --surface:    #FFFFFF;
+      --surface-2:  #EDECEA;
+      --text:       #141413;
+      --text-2:     #4A4845;
+      --muted:      #8A8680;
+      --border:     rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    /* ── BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ── BLUEPRINT GRID ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 1;
+    }
+    :root { --grid-line: rgba(234,179,8,0.03); }
+    [data-theme="light"] { --grid-line: rgba(0,0,0,0.04); }
+
+    /* ── TYPOGRAPHY HELPERS ── */
+    .font-display { font-family: 'Barlow Semi Condensed', sans-serif; }
+    .font-label  { font-family: 'Barlow Condensed', sans-serif; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--volt);
+      flex-shrink: 0;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── VOLT BUTTON ── */
+    .btn-volt {
+      background: var(--volt);
+      color: #0C0C0B;
+      font-family: 'Barlow Semi Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      padding: 12px 28px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.15s ease, transform 0.1s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-volt:hover { background: var(--volt-dk); transform: translateY(-1px); }
+    .btn-volt:active { transform: translateY(0); }
+
+    /* Pulse ring on primary CTA */
+    .btn-volt-pulse::after {
+      content: '';
+      position: absolute; inset: -4px;
+      border-radius: 8px;
+      border: 2px solid var(--volt);
+      opacity: 0;
+      animation: pulse-ring 2.5s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%   { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 0;   transform: scale(1.12); }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      border-color: rgba(234,179,8,0.25);
+      box-shadow: var(--shadow);
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: color-mix(in srgb, var(--bg) 88%, transparent) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-color: var(--border) !important;
+    }
+
+    /* ── MOBILE NAV ── */
+    @media (max-width: 768px) {
+      .desktop-nav { display: none !important; }
+      #hamburger { display: flex !important; }
+      #problem .card-grid { grid-template-columns: 1fr !important; }
+      #how-it-works .steps-grid {
+        grid-template-columns: 1fr !important;
+      }
+      #how-it-works .step-connector { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      footer > div > div:first-of-type { grid-template-columns: 1fr !important; }
+      nav { padding: 0 20px !important; }
+      section { padding-left: 20px !important; padding-right: 20px !important; }
+      .hero-content > div:last-child { gap: 24px !important; }
+      .hero-content > div:last-child > div[style*="width:1px"] { display: none; }
+    }
+
+    @media (max-width: 900px) {
+      #features .features-grid { grid-template-columns: repeat(2,1fr) !important; }
+      .learning-loop-grid { grid-template-columns: 1fr !important; }
+      .demo-block { text-align: center; }
+      .no-new-tools-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 560px) {
+      #features .features-grid { grid-template-columns: 1fr !important; }
+      #problem .card-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 640px) {
+      #proof > div { grid-template-columns: repeat(2,1fr) !important; gap: 0 !important; }
+      #proof > div > div { padding: 20px 16px !important; }
+      #proof > div > div:nth-child(odd) { border-right: 1px solid var(--border); }
+      #proof > div > div:nth-child(1),
+      #proof > div > div:nth-child(2) { border-bottom: 1px solid var(--border); }
+      /* hide the absolute-positioned vertical dividers on mobile */
+      #proof > div > div > div[style*="position:absolute"] { display: none !important; }
+    }
+    @media (max-width: 480px) {
+      #modal-card { padding: 24px 20px !important; }
+    }
+
+    /* ── HOW-IT-WORKS MOBILE ── */
+    @media (max-width: 700px) {
+      .steps-grid {
+        grid-template-columns: 1fr !important;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .step-connector { display: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+<a href="#main-content" style="
+  position:absolute; top:-40px; left:8px; z-index:200;
+  background:var(--volt); color:#0C0C0B;
+  font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+  font-size:0.85rem; padding:8px 16px; border-radius:4px;
+  text-decoration:none;
+  transition:top 0.2s;
+" onfocus="this.style.top='8px'" onblur="this.style.top='-40px'">
+  Skip to main content
+</a>
+
+  <nav id="site-nav" aria-label="Main navigation" style="
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    border-bottom: 1px solid var(--border);
+  ">
+    <!-- Logo -->
+    <a href="#" style="text-decoration:none; display:flex; align-items:center; color:var(--text);">
+      <svg width="164" height="38" viewBox="0 0 164 38" xmlns="http://www.w3.org/2000/svg" aria-label="ToolMate">
+        <!-- Hex mark -->
+        <polygon points="16,2 28,9 28,23 16,30 4,23 4,9"
+          fill="rgba(234,179,8,0.08)" stroke="#EAB308" stroke-width="1.8"/>
+        <!-- Bolt -->
+        <path d="M18.5 7.5 L13 18 L17 18 L14 28.5 L21 17 L17 17 Z" fill="#EAB308"/>
+        <!-- Wordmark -->
+        <text x="36" y="26"
+          font-family="'Barlow Semi Condensed','Arial Narrow',sans-serif"
+          font-weight="700" font-size="22" letter-spacing="0.5"
+          fill="currentColor">TOOL<tspan fill="#EAB308">MATE</tspan></text>
+      </svg>
+    </a>
+
+    <!-- Desktop nav links -->
+    <div style="display:flex; align-items:center; gap:32px;" class="desktop-nav">
+      <a href="#how-it-works" style="font-size:0.85rem; color:var(--text-2); text-decoration:none; transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">How It Works</a>
+      <a href="#features" style="font-size:0.85rem; color:var(--text-2); text-decoration:none; transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">Features</a>
+      <a href="#faq" style="font-size:0.85rem; color:var(--text-2); text-decoration:none; transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">FAQ</a>
+    </div>
+
+    <!-- Right controls -->
+    <div style="display:flex; align-items:center; gap:16px;">
+      <!-- Theme toggle -->
+      <button id="theme-toggle" aria-label="Toggle theme" data-umami-event="theme-toggle" style="
+        background: none; border: 1px solid var(--border);
+        border-radius: 6px; cursor: pointer; padding: 7px;
+        color: var(--text-2); display:flex; align-items:center;
+        transition: border-color 0.2s, color 0.2s;
+      " onmouseover="this.style.borderColor='var(--volt)';this.style.color='var(--volt)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-2)'">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <!-- Join Waitlist CTA -->
+      <button class="btn-volt open-modal" data-umami-event="cta-header-join-waitlist" style="padding: 8px 18px; font-size:0.85rem;">
+        Join Waitlist
+      </button>
+
+      <!-- Mobile hamburger -->
+      <button id="hamburger" aria-label="Open menu" style="
+        display:none; background:none; border:none; cursor:pointer;
+        color:var(--text); padding:4px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay nav -->
+  <div id="mobile-nav" style="
+    display:none; position:fixed; inset:0; z-index:49;
+    background: var(--bg); flex-direction:column;
+    align-items:center; justify-content:center; gap:32px;
+  ">
+    <a href="#how-it-works" class="mobile-nav-link" style="font-family:'Barlow Semi Condensed',sans-serif; font-size:2rem; font-weight:700; color:var(--text); text-decoration:none;">How It Works</a>
+    <a href="#features"     class="mobile-nav-link" style="font-family:'Barlow Semi Condensed',sans-serif; font-size:2rem; font-weight:700; color:var(--text); text-decoration:none;">Features</a>
+    <a href="#faq"          class="mobile-nav-link" style="font-family:'Barlow Semi Condensed',sans-serif; font-size:2rem; font-weight:700; color:var(--text); text-decoration:none;">FAQ</a>
+    <button class="btn-volt open-modal" data-umami-event="cta-mobile-nav-join-waitlist" style="font-size:1rem; padding:14px 36px; margin-top:16px;">Join Waitlist</button>
+  </div>
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section id="hero" style="
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+">
+  <!-- Radial glow behind heading -->
+  <div aria-hidden="true" style="
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:600px; height:600px; pointer-events:none;
+    background: radial-gradient(circle at 50% 40%, rgba(234,179,8,0.1) 0%, transparent 65%);
+  "></div>
+
+  <div class="hero-content" style="position:relative; max-width:760px; width:100%;">
+    <!-- Eyebrow label -->
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:28px;">
+      Built for UK Tradespeople
+    </div>
+
+    <!-- Main headline -->
+    <h1 class="fade-up" style="
+      font-family: 'Barlow Semi Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
+      transition-delay: 0.1s;
+    ">
+      Your craft.<br><span style="color:var(--volt);">Our admin.</span>
+    </h1>
+
+    <!-- Product descriptor -->
+    <p class="fade-up" style="
+      font-family: 'Barlow Semi Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--text);
+      margin: 0 auto 16px;
+      max-width: 540px;
+      line-height: 1.3;
+      transition-delay: 0.15s;
+    ">
+      An AI assistant that handles all your business admin, operated entirely through WhatsApp.
+    </p>
+
+    <!-- Subheadline -->
+    <p class="fade-up" style="
+      font-size: clamp(0.9rem, 1.4vw, 1rem);
+      color: var(--text-2);
+      line-height: 1.65;
+      max-width: 500px;
+      margin: 0 auto 28px;
+      transition-delay: 0.2s;
+    ">
+      Enquiries, quotes, and follow-ups handled while you're on the job. You approve before anything reaches a customer.
+    </p>
+
+
+    <!-- CTA -->
+    <div class="fade-up" style="margin-bottom:12px; transition-delay:0.3s;">
+      <button class="btn-volt btn-volt-pulse open-modal" data-umami-event="cta-hero-join-waitlist" style="font-size:1rem; padding:14px 36px;">
+        Join the Waitlist. It's Free.
+      </button>
+    </div>
+
+    <!-- Lifetime discount badge -->
+    <div class="fade-up" style="
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.25);
+      border-radius:6px; padding:8px 16px; margin-bottom:12px;
+      transition-delay:0.33s;
+    ">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal);">
+        Waitlist members get a lifetime discount on all future plans
+      </span>
+    </div>
+
+    <!-- Micro copy -->
+    <p class="fade-up" style="font-size:0.78rem; color:var(--muted); transition-delay:0.35s;">
+      No credit card required. Takes 60 seconds.
+    </p>
+
+    <!-- Stat callouts -->
+    <div class="fade-up" style="
+      display:flex; justify-content:center; gap:40px;
+      margin-top:52px; flex-wrap:wrap;
+      transition-delay: 0.4s;
+    ">
+      <div style="text-align:center;">
+        <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.2rem); color:var(--volt); line-height:1;">£24k</div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">Lost yearly to<br>missed enquiries</div>
+      </div>
+      <div style="width:1px; background:var(--border); align-self:stretch;"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.2rem); color:var(--volt); line-height:1;">12hrs</div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">Admin every<br>week</div>
+      </div>
+      <div style="width:1px; background:var(--border); align-self:stretch;"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.2rem); color:var(--volt); line-height:1;">21×</div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">More likely to convert if<br>responded to within 5 min</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════ PROBLEM ═══════════════════════════════ -->
+<section id="problem" style="
+  position:relative; z-index:1;
+  padding: 96px 24px;
+  max-width: 1100px; margin: 0 auto;
+">
+  <!-- Section header -->
+  <div style="text-align:center; margin-bottom:56px;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
+      The Problem
+    </div>
+    <h2 class="fade-up" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+      font-size: clamp(2.6rem,4.5vw,4.2rem); line-height:1.05;
+      color:var(--text); transition-delay:0.1s;
+    ">
+      You're losing work you never<br>knew you missed.
+    </h2>
+    <p class="fade-up" style="font-size:1rem; color:var(--text-2); margin-top:18px; max-width:640px; margin-left:auto; margin-right:auto; line-height:1.65; transition-delay:0.15s;">
+      UK tradespeople lose an average of £24,000 a year to enquiries that go unanswered while they're on the tools. That's before you count the evenings lost to admin that generate no revenue.
+    </p>
+  </div>
+
+  <!-- 2×2 card grid -->
+  <div class="card-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
+
+    <!-- Card 1: Enquiries unanswered -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.1s;">
+      <div style="
+        width:40px; height:40px; border-radius:8px;
+        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+        display:flex; align-items:center; justify-content:center;
+        margin-bottom:20px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
+        Enquiries go unanswered
+      </h3>
+      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
+        You're on the tools. A message arrives and by the time you see it, they've gone elsewhere. Leads are <strong style="color:var(--text);">21× more likely to convert</strong> if responded to within 5 minutes. From a rooftop, you can't.
+      </p>
+      <div style="
+        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+        display:inline-block;
+      ">£24,000 lost per year on average</div>
+    </div>
+
+    <!-- Card 2: Evenings on admin -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.2s;">
+      <div style="
+        width:40px; height:40px; border-radius:8px;
+        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+        display:flex; align-items:center; justify-content:center;
+        margin-bottom:20px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
+        Evenings eaten by admin
+      </h3>
+      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
+        You get home and there are messages waiting: quotes to write, invoices to chase, bookings to confirm. Another hour of unpaid work before you can switch off.
+      </p>
+      <div style="
+        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+        display:inline-block;
+      ">12 hours of admin every single week</div>
+    </div>
+
+    <!-- Card 3: Quotes going cold -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.25s;">
+      <div style="
+        width:40px; height:40px; border-radius:8px;
+        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+        display:flex; align-items:center; justify-content:center;
+        margin-bottom:20px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
+        Quotes go cold, money goes unpaid
+      </h3>
+      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
+        UK small trade businesses are owed an average of <strong style="color:var(--text);">£8,500 in unpaid invoices</strong> at any given time. Each one requires 3–5 follow-up messages before it's resolved. That's admin that compounds the original problem and takes time you don't have.
+      </p>
+      <div style="
+        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+        display:inline-block;
+      ">Unpaid quotes = cash flow problems</div>
+    </div>
+
+    <!-- Card 4: Tool sprawl -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.3s;">
+      <div style="
+        width:40px; height:40px; border-radius:8px;
+        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+        display:flex; align-items:center; justify-content:center;
+        margin-bottom:20px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
+        No existing tool actually solves this
+      </h3>
+      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
+        Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">150,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don't care, but because nothing better was built for how they work.
+      </p>
+      <div style="
+        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+        display:inline-block;
+      ">Inadequate platform tools</div>
+    </div>
+  </div>
+
+  <!-- Transition line -->
+  <div class="fade-up" style="text-align:center; margin-top:52px;">
+    <p style="font-size:0.95rem; color:var(--text-2); font-style:italic;">
+      There's a smarter way. That's why we built ToolMate.
+    </p>
+  </div>
+</section>
+<!-- ═══════════════════════════════ HOW IT WORKS ═══════════════════════════════ -->
+<section id="how-it-works" style="
+  position:relative; z-index:1;
+  padding: 96px 24px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+">
+  <div style="max-width:1100px; margin:0 auto;">
+    <!-- Section header -->
+    <div style="text-align:center; margin-bottom:64px;">
+      <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
+        How It Works
+      </div>
+      <h2 class="fade-up" style="
+        font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+        font-size:clamp(2rem,3.5vw,3.2rem); line-height:1.1; color:var(--text);
+        transition-delay:0.1s;
+      ">Set up in under 5 minutes.</h2>
+      <p class="fade-up" style="font-size:0.9rem; color:var(--text-2); margin-top:12px; transition-delay:0.2s;">
+        No tech skills. No IT guy. No faff.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps-grid" style="display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:0; align-items:start;">
+
+      <!-- Step 1 -->
+      <div class="fade-up" style="text-align:center; padding:0 16px; transition-delay:0.1s;">
+        <div style="
+          width:56px; height:56px; border-radius:50%;
+          background:rgba(234,179,8,0.1); border:2px solid var(--volt);
+          display:flex; align-items:center; justify-content:center;
+          margin:0 auto 20px;
+          font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+          font-size:1.3rem; color:var(--volt);
+        ">01</div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:10px;">
+          Connect Your WhatsApp
+        </h3>
+        <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+          Share your number. No app to download, no new login.
+        </p>
+      </div>
+
+      <!-- Connector -->
+      <div class="step-connector" style="padding-top:28px; color:var(--muted);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="fade-up" style="text-align:center; padding:0 16px; transition-delay:0.2s;">
+        <div style="
+          width:56px; height:56px; border-radius:50%;
+          background:rgba(234,179,8,0.1); border:2px solid var(--volt);
+          display:flex; align-items:center; justify-content:center;
+          margin:0 auto 20px;
+          font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+          font-size:1.3rem; color:var(--volt);
+        ">02</div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:10px;">
+          Tell ToolMate About You
+        </h3>
+        <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+          Your trade, working hours, and communication style. ToolMate learns the rest from how you work.
+        </p>
+      </div>
+
+      <!-- Connector -->
+      <div class="step-connector" style="padding-top:28px; color:var(--muted);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="fade-up" style="text-align:center; padding:0 16px; transition-delay:0.3s;">
+        <div style="
+          width:56px; height:56px; border-radius:50%;
+          background:rgba(234,179,8,0.1); border:2px solid var(--volt);
+          display:flex; align-items:center; justify-content:center;
+          margin:0 auto 20px;
+          font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+          font-size:1.3rem; color:var(--volt);
+        ">03</div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:10px;">
+          ToolMate Works. You Approve.
+        </h3>
+        <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+          Enquiries qualified, quotes drafted, follow-ups teed up. You review and approve before anything reaches a customer.
+        </p>
+      </div>
+    </div>
+
+    <!-- No new tools. No learning curve. -->
+    <div class="fade-up" style="margin-top:72px; max-width:860px; margin-left:auto; margin-right:auto;">
+      <div style="
+        background:var(--surface); border:1px solid var(--border); border-radius:12px;
+        padding:48px 52px;
+      ">
+        <div class="section-label" style="margin-bottom:20px;">No New Tools to Learn</div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(1.6rem,2.5vw,2.2rem); color:var(--text); line-height:1.15; margin-bottom:16px;">
+          Works the way you already work.
+        </h3>
+        <p style="font-size:0.9rem; color:var(--text-2); line-height:1.75; margin-bottom:36px; max-width:560px;">
+          ToolMate slots into your existing setup. No new app to download, no dashboard to learn, no workflow to redesign. Think of it as a knowledgeable colleague who happens to be available around the clock: quietly handling the admin so you can focus on the job, and always ready when you need a hand.
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="no-new-tools-grid">
+          <div>
+            <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
+              Your WhatsApp. That's it.
+            </div>
+            <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
+              You already use WhatsApp every day. ToolMate lives there too. No login, no interface — just messages.
+            </p>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
+              Nothing to install.
+            </div>
+            <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
+              Works on the phone in your pocket. No app store, no subscription software, no IT setup required.
+            </p>
+          </div>
+          <div>
+            <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
+              Up to speed from day one.
+            </div>
+            <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
+              Tell ToolMate how you work and it gets to work. No training course. No onboarding curve. No wasted time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════ FEATURES ═══════════════════════════════ -->
+<section id="features" style="
+  position:relative; z-index:1;
+  padding: 96px 24px;
+">
+<div style="max-width:1100px; margin:0 auto;">
+  <!-- Section header -->
+  <div style="text-align:center; margin-bottom:56px;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
+      What It Does
+    </div>
+    <h2 class="fade-up" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+      font-size:clamp(2.4rem,4vw,4rem); line-height:1.05; color:var(--text);
+      transition-delay:0.1s;
+    ">Your assistant. Your approval.<br>Every time.</h2>
+    <p class="fade-up" style="font-size:0.95rem; color:var(--text-2); margin-top:16px; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.65; transition-delay:0.15s;">
+      ToolMate proposes — you approve. Nothing goes to a customer without your sign-off. Over time, it learns how you work and becomes smarter.
+    </p>
+  </div>
+
+  <!-- 3-category grouped layout -->
+  <div class="features-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+
+    <!-- Category 1: Win More Work -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.1s;">
+      <div style="color:var(--teal); margin-bottom:20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.2rem; color:var(--text); margin-bottom:8px;">
+        Win More Work
+      </h3>
+      <p style="font-size:0.83rem; color:var(--text-2); line-height:1.65; margin-bottom:20px;">
+        Every text enquiry picked up, qualified, and ready for your review, whether it arrives at 9am or 11pm.
+      </p>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          24/7 enquiry handling across WhatsApp, email, SMS, and Instagram
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Lead qualification before you spend time on a job
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Emergency and out-of-hours enquiry handling
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Schedule optimisation to cut dead mileage between jobs and ensure you make the most of every working day
+        </li>
+      </ul>
+    </div>
+
+    <!-- Category 2: Keep Work Moving -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.2s;">
+      <div style="color:var(--teal); margin-bottom:20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.2rem; color:var(--text); margin-bottom:8px;">
+        Keep Work Moving
+      </h3>
+      <p style="font-size:0.83rem; color:var(--text-2); line-height:1.65; margin-bottom:20px;">
+        Quotes drafted with live supplier pricing. Intelligent follow-ups teed up. Payment chased on your behalf.
+      </p>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Itemised quotes drafted with live material prices for your approval
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Automatic follow-up on unanswered quotes, in your voice
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Invoice sent on completion, chased at 7, 14, and 30 days
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Flags you when a situation needs your personal attention
+        </li>
+      </ul>
+    </div>
+
+    <!-- Category 3: Build Your Reputation -->
+    <div class="card fade-up" style="padding:32px; transition-delay:0.3s;">
+      <div style="color:var(--teal); margin-bottom:20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.2rem; color:var(--text); margin-bottom:8px;">
+        Build Your Reputation
+      </h3>
+      <p style="font-size:0.83rem; color:var(--text-2); line-height:1.65; margin-bottom:20px;">
+        Systematic review collection, customer history, and proactive follow-up that turns one-off jobs into recurring work.
+      </p>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Post-job review requests sent automatically to every customer
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Full customer history: address, jobs done, payment behaviour
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Proactive outreach for seasonal and recurring work
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
+          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
+          Consistent, professional communication on every interaction
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Learning loop highlight -->
+  <div class="fade-up" style="
+    margin-top:40px; padding:36px 40px;
+    background:rgba(234,179,8,0.05);
+    border:1px solid rgba(234,179,8,0.2);
+    border-radius:10px;
+  ">
+    <div class="learning-loop-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">The Learning Loop</div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(1.6rem,2.5vw,2.2rem); color:var(--text); line-height:1.15; margin-bottom:14px;">
+          Gets smarter every day you use it.
+        </h3>
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          Every correction and adjustment trains ToolMate. Over time it learns your style, your suppliers, and how you like to communicate, until the suggestions feel like they came from you.
+        </p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:flex-start; gap:14px;">
+          <div style="width:8px; height:8px; border-radius:50%; background:var(--volt); margin-top:6px; flex-shrink:0;"></div>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.6;"><strong style="color:var(--text);">Communication style</strong>: your tone, sign-off conventions, and how you prefer to talk to customers</p>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:14px;">
+          <div style="width:8px; height:8px; border-radius:50%; background:var(--volt); margin-top:6px; flex-shrink:0;"></div>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.6;"><strong style="color:var(--text);">Job preferences</strong>: which types of work you take on, typical durations, and how far you'll travel</p>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:14px;">
+          <div style="width:8px; height:8px; border-radius:50%; background:var(--volt); margin-top:6px; flex-shrink:0;"></div>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.6;"><strong style="color:var(--text);">Customer patterns</strong>: who pays on time, who's high-risk, and who's worth prioritising</p>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:14px;">
+          <div style="width:8px; height:8px; border-radius:50%; background:var(--volt); margin-top:6px; flex-shrink:0;"></div>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.6;"><strong style="color:var(--text);">You're always in control</strong>: you approve everything before it reaches a customer, every time</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- ═══════════════════════════════ PROOF STRIP ═══════════════════════════════ -->
+<section id="proof" style="
+  position:relative; z-index:1;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 24px;
+">
+  <div style="
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:0;
+  ">
+
+    <!-- Stat 1 -->
+    <div class="fade-up" style="text-align:center; padding:0 24px; position:relative; transition-delay:0.05s;">
+      <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); color:var(--volt); line-height:1; margin-bottom:10px;">
+        £24,000
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); line-height:1.5;">
+        Average yearly loss<br>from missed enquiries
+      </div>
+      <div style="position:absolute; right:0; top:10%; bottom:10%; width:1px; background:var(--border);"></div>
+    </div>
+
+    <!-- Stat 2 -->
+    <div class="fade-up" style="text-align:center; padding:0 24px; position:relative; transition-delay:0.1s;">
+      <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); color:var(--volt); line-height:1; margin-bottom:10px;">
+        21×
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); line-height:1.5;">
+        More likely to convert if<br>responded to within 5 minutes
+      </div>
+      <div style="position:absolute; right:0; top:10%; bottom:10%; width:1px; background:var(--border);"></div>
+    </div>
+
+    <!-- Stat 3 -->
+    <div class="fade-up" style="text-align:center; padding:0 24px; position:relative; transition-delay:0.15s;">
+      <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); color:var(--volt); line-height:1; margin-bottom:10px;">
+        12hrs
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); line-height:1.5;">
+        Spent on admin<br>every week
+      </div>
+      <div style="position:absolute; right:0; top:10%; bottom:10%; width:1px; background:var(--border);"></div>
+    </div>
+
+    <!-- Stat 4 -->
+    <div class="fade-up" style="text-align:center; padding:0 24px; transition-delay:0.2s;">
+      <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); color:var(--volt); line-height:1; margin-bottom:10px;">
+        81%
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); line-height:1.5;">
+        Of customers check Google<br>reviews before enquirying
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ═══════════════════════════════ FAQ ═══════════════════════════════ -->
+<section id="faq" style="
+  position:relative; z-index:1;
+  padding: 96px 24px;
+  max-width:760px; margin:0 auto;
+">
+  <!-- Section header -->
+  <div style="text-align:center; margin-bottom:48px;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
+      Common Questions
+    </div>
+    <h2 class="fade-up" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+      font-size:clamp(2rem,3.5vw,3.2rem); line-height:1.1; color:var(--text);
+      transition-delay:0.1s;
+    ">Straight answers.</h2>
+  </div>
+
+  <!-- Accordion items -->
+  <div style="display:flex; flex-direction:column; gap:2px;">
+
+    <!-- FAQ item template — repeated 6 times -->
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.05s;">
+      <button class="faq-trigger" style="
+        width:100%; text-align:left; background:none; border:none; cursor:pointer;
+        padding:20px 24px; display:flex; align-items:center; justify-content:space-between;
+        color:var(--text); gap:16px;
+      ">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">
+          Is this just another app I need to install?
+        </span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          No. ToolMate works entirely through WhatsApp. No app to download, no new login, no fuss. If you can send a WhatsApp message, you're set.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.1s;">
+      <button class="faq-trigger" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; color:var(--text); gap:16px;">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">Will ToolMate send things to my customers without asking me first?</span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          Nothing goes out to a customer without your approval. ToolMate drafts and proposes. You decide what gets sent. You can set it to auto-handle routine responses once you trust it, but that's always your choice to make. You're in control at every step.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.13s;">
+      <button class="faq-trigger" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; color:var(--text); gap:16px;">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">Can it handle phone calls?</span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          Not yet. ToolMate handles text-based enquiries: WhatsApp, email, SMS, and Instagram messages. Voice call handling is on the roadmap. In the meantime, many customers who'd have called will message instead if they see a prompt reply from you on other channels.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.15s;">
+      <button class="faq-trigger" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; color:var(--text); gap:16px;">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">Is my customer data safe?</span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          Yes. ToolMate is fully GDPR compliant and all data is stored securely in the UK. We never share your customer data.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.2s;">
+      <button class="faq-trigger" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; color:var(--text); gap:16px;">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">Will my customers know it's AI?</span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          That's up to you. Many tradespeople choose to be transparent; others prefer it seamless. ToolMate supports both approaches.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.25s;">
+      <button class="faq-trigger" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; color:var(--text); gap:16px;">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">How much does it cost?</span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          Free during the waitlist period. Pricing will be confirmed closer to launch, designed to be a fraction of what it recovers and far less than hiring someone to handle it for you.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item fade-up" style="border:1px solid var(--border); border-radius:8px; overflow:hidden; transition-delay:0.3s;">
+      <button class="faq-trigger" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; color:var(--text); gap:16px;">
+        <span style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; font-size:1rem; line-height:1.3;">I'm not very techy. Will I manage?</span>
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+          Absolutely. If you can use WhatsApp, you can use ToolMate. Setup takes under 5 minutes with step-by-step guidance.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ═══════════════════════════════ FINAL CTA ═══════════════════════════════ -->
+<section id="cta" style="
+  position:relative; z-index:1;
+  padding: 120px 24px;
+  text-align:center;
+  overflow:hidden;
+">
+  <!-- Background volt glow -->
+  <div aria-hidden="true" style="
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:700px; height:400px; pointer-events:none;
+    background: radial-gradient(ellipse at center, rgba(234,179,8,0.08) 0%, transparent 65%);
+  "></div>
+
+  <div style="position:relative; max-width:640px; margin:0 auto;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:24px;">
+      Get Early Access
+    </div>
+    <h2 class="fade-up" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+      font-size:clamp(2.2rem,4vw,4rem); line-height:1.05; color:var(--text);
+      margin-bottom:20px; transition-delay:0.1s;
+    ">
+      Ready to win more jobs<br>and get your evenings back?
+    </h2>
+    <p class="fade-up" style="
+      font-size:0.95rem; color:var(--text-2); line-height:1.65;
+      margin-bottom:36px; transition-delay:0.2s;
+    ">
+      Join the ToolMate waitlist today. Be first to get access when we launch and lock in a lifetime discount on every future plan.
+    </p>
+    <div class="fade-up" style="margin-bottom:16px; transition-delay:0.3s;">
+      <button class="btn-volt btn-volt-pulse open-modal" data-umami-event="cta-bottom-join-waitlist" style="font-size:1.05rem; padding:16px 44px;">
+        Join the Waitlist. It's Free.
+      </button>
+    </div>
+    <div class="fade-up" style="
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.25);
+      border-radius:6px; padding:8px 16px; margin-bottom:12px;
+      transition-delay:0.33s;
+    ">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal);">
+        Waitlist = lifetime discount on all plans
+      </span>
+    </div>
+    <p class="fade-up" style="font-size:0.8rem; color:var(--muted); transition-delay:0.35s;">
+      No credit card. No app to install. Takes 60 seconds.
+    </p>
+  </div>
+</section>
+  </main>
+  <footer style="
+  position: relative; z-index: 1;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 48px 40px 28px;
+">
+  <div style="max-width:1100px; margin:0 auto;">
+    <!-- 3-col grid -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; margin-bottom:40px;">
+
+      <!-- Brand -->
+      <div>
+        <div style="margin-bottom:10px; color:var(--text);">
+          <svg width="138" height="32" viewBox="0 0 164 38" xmlns="http://www.w3.org/2000/svg" aria-label="ToolMate">
+            <polygon points="16,2 28,9 28,23 16,30 4,23 4,9" fill="rgba(234,179,8,0.08)" stroke="#EAB308" stroke-width="1.8"/>
+            <path d="M18.5 7.5 L13 18 L17 18 L14 28.5 L21 17 L17 17 Z" fill="#EAB308"/>
+            <text x="36" y="26" font-family="'Barlow Semi Condensed','Arial Narrow',sans-serif" font-weight="700" font-size="22" letter-spacing="0.5" fill="currentColor">TOOL<tspan fill="#EAB308">MATE</tspan></text>
+          </svg>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text-2); line-height:1.6;">
+          An AI admin assistant for UK tradespeople.<br>Operates entirely through WhatsApp.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:14px;">Links</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <a href="#" style="font-size:0.82rem; color:var(--text-2); text-decoration:none;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">Privacy Policy</a>
+          <a href="#" style="font-size:0.82rem; color:var(--text-2); text-decoration:none;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">Terms of Use</a>
+          <a href="mailto:hello@toolmate.co.uk" style="font-size:0.82rem; color:var(--text-2); text-decoration:none;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">Contact</a>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:14px;">Follow</div>
+        <div style="display:flex; gap:14px;">
+          <!-- Instagram -->
+          <a href="#" aria-label="Instagram" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" aria-label="Facebook" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" aria-label="LinkedIn" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="
+      padding-top:20px;
+      border-top: 1px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:8px;
+    ">
+      <span style="font-size:0.78rem; color:var(--muted);">© 2026 ToolMate · Built in the UK 🇬🇧</span>
+      <span style="font-size:0.78rem; color:var(--muted);">All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+<!-- ═══════════════════════════════ MODAL ═══════════════════════════════ -->
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="
+  display:none; position:fixed; inset:0; z-index:100;
+  background:rgba(0,0,0,0.7); backdrop-filter:blur(6px);
+  align-items:center; justify-content:center; padding:24px;
+">
+  <div id="modal-card" style="
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; width:100%; max-width:480px;
+    padding:36px; position:relative;
+    box-shadow:0 24px 80px rgba(0,0,0,0.5);
+    transform:scale(0.95); opacity:0;
+    transition:transform 0.2s ease, opacity 0.2s ease;
+  ">
+    <!-- Close button -->
+    <button id="modal-close" aria-label="Close" style="
+      position:absolute; top:16px; right:16px;
+      background:none; border:none; cursor:pointer;
+      color:var(--text-2); padding:4px; border-radius:4px;
+      transition:color 0.15s;
+    " onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Default state -->
+    <div id="modal-form-state">
+      <h2 id="modal-title" style="
+        font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+        font-size:1.6rem; color:var(--text); margin-bottom:6px;
+      ">Secure Your Spot</h2>
+      <p style="font-size:0.85rem; color:var(--text-2); margin-bottom:16px;">
+        Quick 3-question form. Takes 60 seconds.
+      </p>
+
+      <!-- Lifetime discount callout -->
+      <div style="
+        display:flex; align-items:center; gap:10px;
+        background:rgba(13,148,136,0.08); border:1px solid rgba(13,148,136,0.2);
+        border-radius:6px; padding:10px 14px; margin-bottom:24px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="9" cy="9" r="2"/><circle cx="15" cy="15" r="2"/><line x1="7" y1="17" x2="17" y2="7"/><rect x="2" y="2" width="20" height="20" rx="4"/></svg>
+        <span style="font-size:0.82rem; color:var(--teal); line-height:1.4;">
+          <strong>Lifetime discount:</strong> Waitlist members pay less on every plan, forever.
+        </span>
+      </div>
+
+      <form id="waitlist-form" novalidate>
+
+        <div style="margin-bottom:20px;">
+          <label for="field-pain" style="display:block; font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:8px;">
+            What's your biggest headache outside the actual job?
+          </label>
+          <textarea id="field-pain" name="pain_points" rows="3" placeholder='e.g. "Replying to enquiries in the evening", "Chasing invoices"' required style="
+            width:100%; background:var(--surface-2); border:1px solid var(--border);
+            border-radius:6px; padding:12px 14px; font-family:'Inter',sans-serif;
+            font-size:1rem; color:var(--text); resize:none;
+            transition:border-color 0.15s; outline:none;
+          " onfocus="this.style.borderColor='var(--volt)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <label for="field-email" style="display:block; font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:8px;">
+            Your email address
+          </label>
+          <input id="field-email" type="email" name="email" placeholder="you@example.com" required style="
+            width:100%; background:var(--surface-2); border:1px solid var(--border);
+            border-radius:6px; padding:12px 14px; font-family:'Inter',sans-serif;
+            font-size:1rem; color:var(--text); outline:none;
+            transition:border-color 0.15s;
+          " onfocus="this.style.borderColor='var(--volt)'" onblur="this.style.borderColor='var(--border)'"/>
+        </div>
+
+        <div style="margin-bottom:28px;">
+          <label style="display:block; font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:8px;">
+            Your WhatsApp number
+          </label>
+          <!-- Country code + number input -->
+          <div id="whatsapp-field-wrap" style="
+            display:flex; background:var(--surface-2); border:1px solid var(--border);
+            border-radius:6px; overflow:hidden; transition:border-color 0.15s;
+          ">
+            <div style="position:relative; flex-shrink:0;">
+              <select id="field-dialcode" name="dialcode" style="
+                appearance:none; -webkit-appearance:none;
+                background:transparent; border:none; border-right:1px solid var(--border);
+                padding:12px 28px 12px 12px; font-family:'Inter',sans-serif;
+                font-size:1rem; color:var(--text); cursor:pointer; outline:none;
+                height:100%;
+              ">
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+1-CA">🇨🇦 +1</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+64">🇳🇿 +64</option>
+                <option value="+353">🇮🇪 +353</option>
+                <option value="+27">🇿🇦 +27</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+31">🇳🇱 +31</option>
+                <option value="+46">🇸🇪 +46</option>
+                <option value="+47">🇳🇴 +47</option>
+                <option value="+45">🇩🇰 +45</option>
+                <option value="+48">🇵🇱 +48</option>
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+852">🇭🇰 +852</option>
+              </select>
+              <svg style="position:absolute;right:6px;top:50%;transform:translateY(-50%);pointer-events:none;" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <input id="field-whatsapp" type="tel" name="whatsapp" placeholder="7700 900000" required style="
+              flex:1; min-width:0; background:transparent; border:none;
+              padding:12px 14px; font-family:'Inter',sans-serif;
+              font-size:1rem; color:var(--text); outline:none;
+            "/>
+          </div>
+          <p style="font-size:0.78rem; color:var(--muted); margin-top:6px;">
+            We'll reach out via WhatsApp when your spot is ready.
+          </p>
+        </div>
+
+        <button type="submit" class="btn-volt" style="width:100%; font-size:0.95rem; padding:14px; text-align:center;">
+          Secure My Spot
+        </button>
+
+        <p style="font-size:0.72rem; color:var(--muted); text-align:center; margin-top:12px;">
+          🔒 We never share your data. GDPR compliant.
+        </p>
+      </form>
+    </div>
+
+    <!-- Success state (hidden by default) -->
+    <div id="modal-success-state" style="display:none; text-align:center; padding:16px 0;">
+      <div style="
+        width:56px; height:56px; border-radius:50%;
+        background:rgba(13,148,136,0.15); border:2px solid var(--teal);
+        display:flex; align-items:center; justify-content:center;
+        margin:0 auto 20px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.8rem; color:var(--text); margin-bottom:10px;">
+        You're on the list!
+      </h3>
+      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:16px;">
+        We'll WhatsApp you as soon as your spot is ready. Your lifetime discount is locked in.
+      </p>
+      <div style="
+        display:inline-flex; align-items:center; gap:8px;
+        background:rgba(13,148,136,0.08); border:1px solid rgba(13,148,136,0.2);
+        border-radius:6px; padding:8px 14px; margin-bottom:24px;
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal);">
+          Lifetime discount secured
+        </span>
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-2); line-height:1.65; margin-bottom:28px;">
+        Tell a fellow tradesperson — they'll get the discount too. The more who join, the faster we launch.
+      </p>
+      <a id="share-btn" href="#" target="_blank" rel="noopener" class="btn-volt" data-umami-event="share-after-signup" style="display:inline-block; font-size:0.9rem; padding:12px 28px;">
+        Share with a Mate 📲
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+  /* ─── THEME ─── */
+  function updateThemeIcons(theme) {
+    var sun  = document.getElementById('icon-sun');
+    var moon = document.getElementById('icon-moon');
+    if (!sun || !moon) return;
+    if (theme === 'dark') {
+      sun.style.display  = 'block';
+      moon.style.display = 'none';
+    } else {
+      sun.style.display  = 'none';
+      moon.style.display = 'block';
+    }
+  }
+
+  (function() {
+    var saved = localStorage.getItem('jm-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    updateThemeIcons(saved);
+  })();
+
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme');
+    var next    = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('jm-theme', next);
+    updateThemeIcons(next);
+  });
+
+  /* ─── NAV SCROLL ─── */
+  var nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 80) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ─── MOBILE NAV ─── */
+  var mobileNav  = document.getElementById('mobile-nav');
+  var hamburger  = document.getElementById('hamburger');
+  var isNavOpen  = false;
+
+  hamburger.addEventListener('click', function() {
+    isNavOpen = !isNavOpen;
+    mobileNav.style.display = isNavOpen ? 'flex' : 'none';
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      isNavOpen = false;
+      mobileNav.style.display = 'none';
+    });
+  });
+
+  /* ─── SCROLL FADE-IN ─── */
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  // Trigger all .fade-up immediately visible on load
+  document.querySelectorAll('.fade-up').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  /* ─── FAQ ACCORDION ─── */
+  document.querySelectorAll('.faq-trigger').forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      var item    = trigger.closest('.faq-item');
+      var body    = item.querySelector('.faq-body');
+      var chevron = item.querySelector('.faq-chevron');
+      var isOpen  = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+      // Close all other items
+      document.querySelectorAll('.faq-item').forEach(function(other) {
+        if (other !== item) {
+          other.querySelector('.faq-body').style.maxHeight = '0px';
+          other.querySelector('.faq-chevron').style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle this item
+      if (isOpen) {
+        body.style.maxHeight    = '0px';
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        body.style.maxHeight    = body.scrollHeight + 'px';
+        chevron.style.transform = 'rotate(180deg)';
+        // Track FAQ open
+        var question = trigger.querySelector('span') ? trigger.querySelector('span').textContent.trim() : '';
+        if (typeof umami !== 'undefined') umami.track('faq-open', { question: question });
+      }
+    });
+  });
+
+  /* ─── MODAL ─── */
+  var overlay   = document.getElementById('modal-overlay');
+  var card      = document.getElementById('modal-card');
+  var formState = document.getElementById('modal-form-state');
+  var okState   = document.getElementById('modal-success-state');
+
+  function openModal() {
+    // Reset to form state on every open
+    document.getElementById('modal-form-state').style.display = '';
+    document.getElementById('modal-success-state').style.display = 'none';
+    var submitBtn = document.querySelector('#waitlist-form [type="submit"]');
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Secure My Spot'; }
+    document.getElementById('waitlist-form').reset();
+
+    // then the existing open logic:
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        card.style.transform = 'scale(1)';
+        card.style.opacity   = '1';
+      });
+    });
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      var firstField = document.getElementById('field-pain');
+      if (firstField) firstField.focus();
+    }, 220); // after animation
+  }
+
+  function closeModal() {
+    card.style.transform = 'scale(0.95)';
+    card.style.opacity   = '0';
+    setTimeout(function() {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  /* ─── FOCUS TRAP ─── */
+  overlay.addEventListener('keydown', function(e) {
+    if (overlay.style.display !== 'flex') return;
+    var focusable = Array.from(card.querySelectorAll(
+      'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    )).filter(function(el) { return !el.disabled && el.offsetParent !== null; });
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+  });
+
+  document.querySelectorAll('.open-modal').forEach(function(btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.style.display === 'flex') closeModal();
+  });
+
+  /* ─── WHATSAPP FIELD FOCUS RING ─── */
+  (function() {
+    var wrap = document.getElementById('whatsapp-field-wrap');
+    var inputs = wrap ? wrap.querySelectorAll('input, select') : [];
+    inputs.forEach(function(el) {
+      el.addEventListener('focus', function() { wrap.style.borderColor = 'var(--volt)'; });
+      el.addEventListener('blur', function() { wrap.style.borderColor = 'var(--border)'; });
+    });
+  })();
+
+  /* ─── FORM SUBMISSION ─── */
+  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var submitBtn = this.querySelector('[type="submit"]');
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+
+    var dialCode = document.getElementById('field-dialcode').value.split('-')[0]; // strip -CA etc
+    var number = document.getElementById('field-whatsapp').value.trim().replace(/^0/, ''); // strip leading 0
+    var payload = {
+      pain_points: document.getElementById('field-pain').value,
+      email:       document.getElementById('field-email').value,
+      whatsapp:    dialCode + number,
+      submitted_at: new Date().toISOString()
+    };
+
+    /* Set window.TOOLMATE_WEBHOOK_URL before this script (e.g. via server-side template injection
+       or a preceding <script> tag) to enable form submission. If not set, submissions are
+       logged to the console only — no waitlist data will be captured. */
+    var webhookUrl = window.TOOLMATE_WEBHOOK_URL || null;
+
+    if (typeof umami !== 'undefined') umami.track('waitlist-form-submit', { pain_points: payload.pain_points });
+
+    var done = function() {
+      formState.style.display = 'none';
+      okState.style.display   = 'block';
+      var shareText = encodeURIComponent("I just joined the ToolMate waitlist — AI-powered admin for tradespeople, via WhatsApp. Check it out: https://toolmate.co.uk");
+      document.getElementById('share-btn').href = 'https://wa.me/?text=' + shareText;
+    };
+
+    if (webhookUrl) {
+      fetch(webhookUrl, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
+      })
+        .then(done)
+        .catch(function(err) {
+          console.error('Webhook error:', err);
+          done(); // still show success to user
+        });
+    } else {
+      console.log('Waitlist submission (no webhook configured):', payload);
+      setTimeout(done, 600);
+    }
+  });
+</script>
+
+</body>
+</html>

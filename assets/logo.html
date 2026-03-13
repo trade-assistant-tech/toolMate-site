@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 600px; height: 400px;
+    background: #0C0C0B;
+    display: flex; align-items: center; justify-content: center;
+    font-family: system-ui, sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@700&family=Barlow+Condensed:wght@600&display=swap');
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<svg width="520" height="320" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background pill / dark surface -->
+  <rect width="520" height="320" fill="#0C0C0B"/>
+
+  <!-- Hexagon mark -->
+  <!-- Hexagon centered at 120, 140, size 80 -->
+  <polygon
+    points="120,60 192,102 192,186 120,228 48,186 48,102"
+    fill="none"
+    stroke="#EAB308"
+    stroke-width="4"
+  />
+  <!-- Inner hex fill subtle -->
+  <polygon
+    points="120,60 192,102 192,186 120,228 48,186 48,102"
+    fill="rgba(234,179,8,0.06)"
+  />
+
+  <!-- Lightning bolt inside hex -->
+  <path
+    d="M130 95 L108 148 L122 148 L110 185 L142 132 L128 132 Z"
+    fill="#EAB308"
+  />
+
+  <!-- TOOLMATE wordmark -->
+  <text
+    x="222" y="128"
+    font-family="'Barlow Semi Condensed', 'Arial Narrow', sans-serif"
+    font-weight="700"
+    font-size="72"
+    letter-spacing="2"
+    fill="#F5F3EE"
+  >TOOL<tspan fill="#EAB308">MATE</tspan></text>
+
+  <!-- Rule line -->
+  <rect x="222" y="146" width="270" height="3" fill="#EAB308" rx="1.5"/>
+
+  <!-- Descriptor -->
+  <text
+    x="222" y="184"
+    font-family="'Barlow Condensed', 'Arial Narrow', sans-serif"
+    font-weight="600"
+    font-size="18"
+    letter-spacing="5"
+    fill="#5A5752"
+  >AI TRADE ASSISTANT</text>
+</svg>
+</body>
+</html>
