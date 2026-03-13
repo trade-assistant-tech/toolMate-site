@@ -1,5 +1,7 @@
 # ToolMate
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/78a86a7a-fbc1-41f4-a062-005ca1bad0a8/deploy-status)](https://app.netlify.com/projects/toolmateuk/deploys)
+
 **Your craft. Our admin.**
 
 ToolMate is an AI-powered assistant for UK tradespeople that handles enquiries, quotes, and follow-ups via WhatsApp. You stay in control — reviewing and approving everything before it's sent.
