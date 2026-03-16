@@ -186,6 +186,16 @@
       #features .features-grid { grid-template-columns: repeat(2,1fr) !important; }
       .learning-loop-grid { grid-template-columns: 1fr !important; }
       .demo-block { text-align: center; }
+
+      /* Demo panels: side-by-side on desktop */
+      @media (min-width: 640px) {
+        .demo-panel-inner {
+          flex-direction: row !important;
+        }
+        .demo-description {
+          text-align: left !important;
+        }
+      }
       .no-new-tools-grid { grid-template-columns: 1fr !important; }
     }
     @media (max-width: 560px) {
@@ -356,20 +366,9 @@
       line-height: 1.3;
       transition-delay: 0.15s;
     ">
-      An AI assistant that handles all your business admin, operated entirely through WhatsApp.
+      AI-powered admin that helps with the entire job lifecycle, right inside your WhatsApp.
     </p>
 
-    <!-- Subheadline -->
-    <p class="fade-up" style="
-      font-size: clamp(0.9rem, 1.4vw, 1rem);
-      color: var(--text-2);
-      line-height: 1.65;
-      max-width: 500px;
-      margin: 0 auto 28px;
-      transition-delay: 0.2s;
-    ">
-      Enquiries, quotes, and follow-ups handled while you're on the job. You approve before anything reaches a customer.
-    </p>
 
 
     <!-- CTA -->
@@ -424,9 +423,9 @@
 <section id="demo" style="
   position:relative; z-index:1;
   padding: 64px 24px 80px;
-  max-width: 520px; margin: 0 auto;
+  max-width: 740px; margin: 0 auto;
 ">
-  <div style="text-align:center; margin-bottom:32px;">
+  <div style="text-align:center; margin-bottom:36px;">
     <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
       See It in Action
     </div>
@@ -434,32 +433,225 @@
       font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
       font-size:clamp(1.8rem,3vw,2.6rem); line-height:1.1; color:var(--text);
       transition-delay:0.1s;
-    ">Enquiry in. Reply drafted.<br><span style="color:var(--volt);">You approve.</span></h2>
+    ">From message to reply, <span style="color:var(--volt);">hands&#8209;free</span></h2>
     <p class="fade-up" style="font-size:0.9rem; color:var(--text-2); margin-top:12px; line-height:1.65; transition-delay:0.15s;">
-      Watch ToolMate handle a real enquiry and draft a professional reply — ready for your approval in seconds.
+      See how ToolMate handles real conversations on your phone. Pick a scenario below.
     </p>
   </div>
 
-  <div class="fade-up" style="
-    border-radius:12px; overflow:hidden;
-    border:1px solid var(--border);
-    box-shadow: var(--shadow);
-    transition-delay:0.2s;
-  ">
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster="assets/whatsapp-jobmate-demo.png"
-      style="width:100%; display:block;"
-    >
-      <source src="assets/Enquiry_from_emma_and_suggested_reply_being_sent.mov" type="video/quicktime"/>
-      <!-- For broader browser support, add an mp4 source above this line -->
-      <img src="assets/whatsapp-jobmate-demo.png" alt="ToolMate WhatsApp demo showing an enquiry and drafted reply" style="width:100%;"/>
-    </video>
+  <!-- Tabs -->
+  <div class="fade-up" style="display:flex; justify-content:center; gap:8px; margin-bottom:28px;">
+    <button class="demo-tab demo-tab--active" data-tab="enquiry" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.03em;
+      padding:10px 22px; border-radius:80px; border:1.5px solid var(--border);
+      background:transparent; color:var(--text-2); cursor:pointer;
+      transition: all 0.25s ease;
+    ">Reply to an Enquiry</button>
+    <button class="demo-tab" data-tab="quote" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.03em;
+      padding:10px 22px; border-radius:80px; border:1.5px solid var(--border);
+      background:transparent; color:var(--text-2); cursor:pointer;
+      transition: all 0.25s ease;
+    ">Send a Quote</button>
+    <button class="demo-tab" data-tab="scheduling" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.03em;
+      padding:10px 22px; border-radius:80px; border:1.5px solid var(--border);
+      background:transparent; color:var(--text-2); cursor:pointer;
+      transition: all 0.25s ease;
+    ">Schedule a Job</button>
   </div>
+
+  <!-- Tab panels -->
+  <div style="position:relative;">
+
+    <!-- Panel 1: Enquiry -->
+    <div class="demo-panel demo-panel--active" data-panel="enquiry" style="
+      display:flex; flex-direction:column; align-items:center; gap:24px;
+      transition: opacity 0.35s ease;
+    ">
+      <div class="demo-panel-inner" style="
+        display:flex; align-items:center; justify-content:center; gap:40px;
+        flex-direction:column;
+      ">
+        <div class="demo-phone" style="
+          position:relative; width:280px; flex-shrink:0;
+          border-radius:36px; overflow:hidden;
+          border:6px solid #1a1a1a;
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.4);
+          background:#000;
+        ">
+          <video class="demo-vid" autoplay muted playsinline preload="metadata"
+            style="width:100%; display:block; border-radius:30px;">
+            <source src="assets/enquiry-demo.mp4" type="video/mp4"/>
+            <source src="assets/Enquiry_from_emma_and_suggested_reply_being_sent.mov" type="video/quicktime"/>
+          </video>
+          <div class="demo-splash" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.85); border-radius:30px;
+            opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+          "><span style="font-family:'Barlow Semi Condensed',sans-serif;
+            font-weight:700; font-size:1.4rem; color:var(--volt); letter-spacing:0.02em;
+          ">Enquiry handled.</span></div>
+        </div>
+        <div class="demo-description" style="text-align:center; max-width:320px;">
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.15rem; color:var(--text); margin-bottom:10px;">Instant replies to customer enquiries</h3>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+            A customer asks about availability. ToolMate reads the message, drafts a friendly, professional reply and sends it to you for approval. All within WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2: Quote -->
+    <div class="demo-panel" data-panel="quote" style="
+      display:none; flex-direction:column; align-items:center; gap:24px;
+      opacity:0; transition: opacity 0.35s ease;
+    ">
+      <div class="demo-panel-inner" style="
+        display:flex; align-items:center; justify-content:center; gap:40px;
+        flex-direction:column;
+      ">
+        <div class="demo-phone" style="
+          position:relative; width:280px; flex-shrink:0;
+          border-radius:36px; overflow:hidden;
+          border:6px solid #1a1a1a;
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.4);
+          background:#000;
+        ">
+          <video class="demo-vid" muted playsinline preload="metadata"
+            style="width:100%; display:block; border-radius:30px;">
+            <source src="assets/quote-demo.mp4" type="video/mp4"/>
+            <source src="assets/Initial quote, and then fix and then requoting and sending.mov" type="video/quicktime"/>
+          </video>
+          <div class="demo-splash" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.85); border-radius:30px;
+            opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+          "><span style="font-family:'Barlow Semi Condensed',sans-serif;
+            font-weight:700; font-size:1.4rem; color:var(--volt); letter-spacing:0.02em;
+          ">Quote sent.</span></div>
+        </div>
+        <div class="demo-description" style="text-align:center; max-width:320px;">
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.15rem; color:var(--text); margin-bottom:10px;">Review, tweak and send quotes</h3>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+            ToolMate generates a quote based on the conversation. You review the price, tweak if needed, and approve. The customer gets a polished quote in seconds.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Scheduling -->
+    <div class="demo-panel" data-panel="scheduling" style="
+      display:none; flex-direction:column; align-items:center; gap:24px;
+      opacity:0; transition: opacity 0.35s ease;
+    ">
+      <div class="demo-panel-inner" style="
+        display:flex; align-items:center; justify-content:center; gap:40px;
+        flex-direction:column;
+      ">
+        <div class="demo-phone" style="
+          position:relative; width:280px; flex-shrink:0;
+          border-radius:36px; overflow:hidden;
+          border:6px solid #1a1a1a;
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.4);
+          background:#000;
+        ">
+          <video class="demo-vid" muted playsinline preload="metadata"
+            style="width:100%; display:block; border-radius:30px;">
+            <source src="assets/scheduling-demo.mp4" type="video/mp4"/>
+            <source src="assets/Automatic_scheduling_based_on_calendar_and.mov" type="video/quicktime"/>
+          </video>
+          <div class="demo-splash" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.85); border-radius:30px;
+            opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+          "><span style="font-family:'Barlow Semi Condensed',sans-serif;
+            font-weight:700; font-size:1.4rem; color:var(--volt); letter-spacing:0.02em;
+          ">Job booked.</span></div>
+        </div>
+        <div class="demo-description" style="text-align:center; max-width:320px;">
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.15rem; color:var(--text); margin-bottom:10px;">Automatic scheduling from your calendar</h3>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+            ToolMate checks your calendar, finds a slot that works, and offers it to the customer. You confirm, and the job is booked.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  (function(){
+    /* ── Splash overlay logic ── */
+    document.querySelectorAll('.demo-vid').forEach(function(v){
+      var s = v.parentElement.querySelector('.demo-splash');
+      if(!s) return;
+      v.addEventListener('timeupdate', function(){
+        s.style.opacity = (v.duration - v.currentTime <= 1.5) ? '1' : '0';
+      });
+      v.addEventListener('ended', function(){
+        setTimeout(function(){
+          s.style.opacity = '0';
+          v.currentTime = 0;
+          v.play();
+        }, 2000);
+      });
+    });
+
+    /* ── Tab switching ── */
+    var tabs = document.querySelectorAll('.demo-tab');
+    var panels = document.querySelectorAll('.demo-panel');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var target = tab.getAttribute('data-tab');
+
+        /* Update tab styles */
+        tabs.forEach(function(t){
+          t.classList.remove('demo-tab--active');
+          t.style.background = 'transparent';
+          t.style.color = 'var(--text-2)';
+          t.style.borderColor = 'var(--border)';
+        });
+        tab.classList.add('demo-tab--active');
+        tab.style.background = 'var(--volt)';
+        tab.style.color = '#000';
+        tab.style.borderColor = 'var(--volt)';
+
+        /* Swap panels — instant, no transition */
+        panels.forEach(function(p){
+          var vid = p.querySelector('.demo-vid');
+          if(p.getAttribute('data-panel') === target){
+            p.style.transition = 'none';
+            p.style.opacity = '1';
+            p.style.display = 'flex';
+            if(vid){ vid.currentTime = 0; vid.play(); }
+          } else {
+            p.style.transition = 'none';
+            p.style.opacity = '0';
+            p.style.display = 'none';
+            if(vid){ vid.pause(); vid.currentTime = 0; }
+            var splash = p.querySelector('.demo-splash');
+            if(splash) splash.style.opacity = '0';
+          }
+        });
+      });
+    });
+
+    /* Activate first tab on load */
+    var first = document.querySelector('.demo-tab--active');
+    if(first){
+      first.style.background = 'var(--volt)';
+      first.style.color = '#000';
+      first.style.borderColor = 'var(--volt)';
+    }
+  })();
+  </script>
 </section>
 <!-- ═══════════════════════════════ PROBLEM ═══════════════════════════════ -->
 <section id="problem" style="
@@ -489,17 +681,19 @@
 
     <!-- Card 1: Enquiries unanswered -->
     <div class="card fade-up" style="padding:32px; transition-delay:0.1s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
-      ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/></svg>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <div style="
+          width:40px; height:40px; border-radius:8px;
+          background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+          display:flex; align-items:center; justify-content:center;
+          flex-shrink:0;
+        ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/></svg>
+        </div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+          Enquiries go unanswered
+        </h3>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        Enquiries go unanswered
-      </h3>
       <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
         You're on the tools. A message arrives and by the time you see it, they've gone elsewhere. Leads are <strong style="color:var(--text);">21× more likely to convert</strong> if responded to within 5 minutes. From a rooftop, you can't.
       </p>
@@ -513,17 +707,19 @@
 
     <!-- Card 2: Evenings on admin -->
     <div class="card fade-up" style="padding:32px; transition-delay:0.2s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
-      ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <div style="
+          width:40px; height:40px; border-radius:8px;
+          background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+          display:flex; align-items:center; justify-content:center;
+          flex-shrink:0;
+        ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+          Evenings eaten by admin
+        </h3>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        Evenings eaten by admin
-      </h3>
       <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
         You get home and there are messages waiting: quotes to write, invoices to chase, bookings to confirm. Another hour of unpaid work before you can switch off.
       </p>
@@ -537,17 +733,19 @@
 
     <!-- Card 3: Quotes going cold -->
     <div class="card fade-up" style="padding:32px; transition-delay:0.25s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
-      ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <div style="
+          width:40px; height:40px; border-radius:8px;
+          background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+          display:flex; align-items:center; justify-content:center;
+          flex-shrink:0;
+        ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+          Quotes go cold, money goes unpaid
+        </h3>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        Quotes go cold, money goes unpaid
-      </h3>
       <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
         UK small trade businesses are owed an average of <strong style="color:var(--text);">£8,500 in unpaid invoices</strong> at any given time. Each one requires 3–5 follow-up messages before it's resolved. That's admin that compounds the original problem and takes time you don't have.
       </p>
@@ -561,17 +759,19 @@
 
     <!-- Card 4: Tool sprawl -->
     <div class="card fade-up" style="padding:32px; transition-delay:0.3s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
-      ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <div style="
+          width:40px; height:40px; border-radius:8px;
+          background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+          display:flex; align-items:center; justify-content:center;
+          flex-shrink:0;
+        ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+        </div>
+        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+          No existing tool actually solves this
+        </h3>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        No existing tool actually solves this
-      </h3>
       <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
         Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">150,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don't care, but because nothing better was built for how they work.
       </p>
@@ -1144,24 +1344,6 @@
         </div>
       </div>
 
-      <!-- Social -->
-      <div>
-        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:14px;">Follow</div>
-        <div style="display:flex; gap:14px;">
-          <!-- Instagram -->
-          <a href="#" aria-label="Instagram" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <!-- Facebook -->
-          <a href="#" aria-label="Facebook" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <!-- LinkedIn -->
-          <a href="#" aria-label="LinkedIn" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-        </div>
-      </div>
     </div>
 
     <!-- Bottom bar -->
@@ -1172,7 +1354,6 @@
       flex-wrap:wrap; gap:8px;
     ">
       <span style="font-size:0.78rem; color:var(--muted);">© 2026 ToolMate · Built in the UK 🇬🇧</span>
-      <span style="font-size:0.78rem; color:var(--muted);">All rights reserved.</span>
     </div>
   </div>
 </footer>
