@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-GB" data-theme="light">
+<html lang="en-GB" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
@@ -49,7 +49,7 @@
 
     /* ── BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
@@ -79,7 +79,7 @@
 
     .section-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
+      font-size: 1.05rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -182,10 +182,29 @@
       .hero-content > div:last-child > div[style*="width:1px"] { display: none; }
     }
 
+    .lifecycle-item .lifecycle-circle {
+      position:relative; z-index:2;
+      background:#1a170c !important;
+      box-shadow:0 0 0 6px var(--bg);
+    }
+
     @media (max-width: 900px) {
-      #features .features-grid { grid-template-columns: repeat(2,1fr) !important; }
       .learning-loop-grid { grid-template-columns: 1fr !important; }
       .demo-block { text-align: center; }
+
+      /* Collapsible details */
+      summary::-webkit-details-marker { display: none; }
+      details[open] .details-chevron { transform: rotate(180deg); }
+
+      /* Demo panels: side-by-side on desktop */
+      @media (min-width: 640px) {
+        .demo-panel-inner {
+          flex-direction: row !important;
+        }
+        .demo-description {
+          text-align: left !important;
+        }
+      }
       .no-new-tools-grid { grid-template-columns: 1fr !important; }
     }
     @media (max-width: 560px) {
@@ -217,6 +236,148 @@
     }
 
   </style>
+
+  <script>
+  /* ── LOCALE CONFIG ── */
+  window.__LOCALE__ = {
+    GB: {
+      lang: "en-GB",
+      titleSuffix: "UK Tradespeople",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for UK tradespeople. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for UK Tradespeople",
+      lostYearly: "\u00a324k",
+      lostBadge: "\u00a324,000 lost per year on average",
+      unpaidProse: 'UK small trade businesses are owed an average of <strong style="color:var(--text);">\u00a38,500 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">150,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "\u00a324,000",
+      faqPrivacy: "Yes. ToolMate is fully GDPR compliant and all data is stored securely in the UK. We never share your customer data.",
+      footerTagline: "An AI admin assistant for UK tradespeople.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Built in the UK \ud83c\uddec\ud83c\udde7",
+      privacyNote: "\ud83d\udd12 We never share your data. GDPR compliant.",
+      dialCode: "+44",
+      phonePlaceholder: "7700 900000",
+      shareUrl: "https://toolmate.co.uk"
+    },
+    US: {
+      lang: "en-US",
+      titleSuffix: "US Tradespeople",
+      metaDesc: "ToolMate handles every text inquiry, quote, and follow-up for US tradespeople. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for US Tradespeople",
+      lostYearly: "$32k",
+      lostBadge: "$32,000 lost per year on average",
+      unpaidProse: 'US small trade businesses are owed an average of <strong style="color:var(--text);">$11,000 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Jobber and Housecall Pro still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Over 200,000 trade businesses still run on texts and paper notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "$32,000",
+      faqPrivacy: "Yes. ToolMate takes your privacy seriously and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for US tradespeople.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving the US \ud83c\uddfa\ud83c\uddf8",
+      privacyNote: "\ud83d\udd12 We never share your data. Privacy protected.",
+      dialCode: "+1",
+      phonePlaceholder: "(555) 123-4567",
+      shareUrl: "https://toolmate.co.uk"
+    },
+    AU: {
+      lang: "en-AU",
+      titleSuffix: "Australian Tradies",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for Australian tradies. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for Australian Tradies",
+      lostYearly: "A$38k",
+      lostBadge: "A$38,000 lost per year on average",
+      unpaidProse: 'Australian small trade businesses are owed an average of <strong style="color:var(--text);">A$12,000 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'ServiceM8 and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Over 80,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "A$38,000",
+      faqPrivacy: "Yes. ToolMate is Privacy Act compliant and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for Australian tradies.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving Australia \ud83c\udde6\ud83c\uddfa",
+      privacyNote: "\ud83d\udd12 We never share your data. Privacy Act compliant.",
+      dialCode: "+61",
+      phonePlaceholder: "0412 345 678",
+      shareUrl: "https://toolmate.co.uk"
+    },
+    CA: {
+      lang: "en-CA",
+      titleSuffix: "Canadian Tradespeople",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for Canadian tradespeople. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for Canadian Tradespeople",
+      lostYearly: "C$35k",
+      lostBadge: "C$35,000 lost per year on average",
+      unpaidProse: 'Canadian small trade businesses are owed an average of <strong style="color:var(--text);">C$11,500 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Jobber and Housecall Pro still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Over 100,000 trade businesses still run on texts and paper notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "C$35,000",
+      faqPrivacy: "Yes. ToolMate takes your privacy seriously and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for Canadian tradespeople.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving Canada \ud83c\udde8\ud83c\udde6",
+      privacyNote: "\ud83d\udd12 We never share your data. Privacy protected.",
+      dialCode: "+1-CA",
+      phonePlaceholder: "(555) 123-4567",
+      shareUrl: "https://toolmate.co.uk"
+    },
+    NZ: {
+      lang: "en-NZ",
+      titleSuffix: "NZ Tradies",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for NZ tradies. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for NZ Tradies",
+      lostYearly: "NZ$36k",
+      lostBadge: "NZ$36,000 lost per year on average",
+      unpaidProse: 'NZ small trade businesses are owed an average of <strong style="color:var(--text);">NZ$12,000 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Tradify and Fergus still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Thousands of trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "NZ$36,000",
+      faqPrivacy: "Yes. ToolMate takes your privacy seriously and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for NZ tradies.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving New Zealand \ud83c\uddf3\ud83c\uddff",
+      privacyNote: "\ud83d\udd12 We never share your data. Privacy protected.",
+      dialCode: "+64",
+      phonePlaceholder: "021 123 4567",
+      shareUrl: "https://toolmate.co.uk"
+    },
+    IE: {
+      lang: "en-IE",
+      titleSuffix: "Irish Tradespeople",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for Irish tradespeople. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for Irish Tradespeople",
+      lostYearly: "\u20ac28k",
+      lostBadge: "\u20ac28,000 lost per year on average",
+      unpaidProse: 'Irish small trade businesses are owed an average of <strong style="color:var(--text);">\u20ac10,000 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Tens of thousands of trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "\u20ac28,000",
+      faqPrivacy: "Yes. ToolMate is fully GDPR compliant and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for Irish tradespeople.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving Ireland \ud83c\uddee\ud83c\uddea",
+      privacyNote: "\ud83d\udd12 We never share your data. GDPR compliant.",
+      dialCode: "+353",
+      phonePlaceholder: "087 123 4567",
+      shareUrl: "https://toolmate.co.uk"
+    },
+    EU: {
+      lang: "en",
+      titleSuffix: "Tradespeople",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for tradespeople. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for Tradespeople",
+      lostYearly: "\u20ac28k",
+      lostBadge: "\u20ac28,000 lost per year on average",
+      unpaidProse: 'Small trade businesses are owed an average of <strong style="color:var(--text);">\u20ac10,000 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Existing trade software still needs constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Hundreds of thousands of trade businesses still run on WhatsApp and paper notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "\u20ac28,000",
+      faqPrivacy: "Yes. ToolMate is fully GDPR compliant and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for tradespeople.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving Europe \ud83c\uddea\ud83c\uddfa",
+      privacyNote: "\ud83d\udd12 We never share your data. GDPR compliant.",
+      dialCode: "+33",
+      phonePlaceholder: "06 12 34 56 78",
+      shareUrl: "https://toolmate.co.uk"
+    }
+  };
+
+  /* Map country codes to locale keys */
+  window.__COUNTRY_MAP__ = {
+    GB:"GB", US:"US", AU:"AU", CA:"CA", NZ:"NZ", IE:"IE",
+    FR:"EU", DE:"EU", NL:"EU", BE:"EU", ES:"EU", IT:"EU", PT:"EU",
+    AT:"EU", LU:"EU", FI:"EU", GR:"EU", MT:"EU", CY:"EU", SK:"EU",
+    SI:"EU", EE:"EU", LV:"EU", LT:"EU", HR:"EU",
+    SE:"EU", DK:"EU", NO:"EU", PL:"EU", CZ:"EU", HU:"EU", RO:"EU", BG:"EU",
+    CH:"EU"
+  };
+  </script>
 </head>
 <body>
 <a href="#main-content" style="
@@ -328,7 +489,7 @@
 
   <div class="hero-content" style="position:relative; max-width:760px; width:100%;">
     <!-- Eyebrow label -->
-    <div class="section-label fade-up" style="justify-content:center; margin-bottom:28px;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:28px;" data-locale-key="eyebrow">
       Built for UK Tradespeople
     </div>
 
@@ -339,7 +500,7 @@
       font-size: clamp(3rem, 5.5vw, 5.5rem);
       line-height: 1.05;
       color: var(--text);
-      margin-bottom: 20px;
+      margin-bottom: 28px;
       transition-delay: 0.1s;
     ">
       Your craft.<br><span style="color:var(--volt);">Our admin.</span>
@@ -351,29 +512,16 @@
       font-weight: 600;
       font-size: clamp(1.1rem, 2vw, 1.35rem);
       color: var(--text);
-      margin: 0 auto 16px;
+      margin: 0 auto 36px;
       max-width: 540px;
       line-height: 1.3;
       transition-delay: 0.15s;
     ">
-      An AI assistant that handles all your business admin, operated entirely through WhatsApp.
+      ToolMate is an AI-powered admin that helps with the entire job lifecycle, right inside your WhatsApp.
     </p>
-
-    <!-- Subheadline -->
-    <p class="fade-up" style="
-      font-size: clamp(0.9rem, 1.4vw, 1rem);
-      color: var(--text-2);
-      line-height: 1.65;
-      max-width: 500px;
-      margin: 0 auto 28px;
-      transition-delay: 0.2s;
-    ">
-      Enquiries, quotes, and follow-ups handled while you're on the job. You approve before anything reaches a customer.
-    </p>
-
 
     <!-- CTA -->
-    <div class="fade-up" style="margin-bottom:12px; transition-delay:0.3s;">
+    <div class="fade-up" style="margin-bottom:16px; transition-delay:0.3s;">
       <button class="btn-volt btn-volt-pulse open-modal" data-umami-event="cta-hero-join-waitlist" style="font-size:1rem; padding:14px 36px;">
         Join the Waitlist. It's Free.
       </button>
@@ -383,7 +531,7 @@
     <div class="fade-up" style="
       display:inline-flex; align-items:center; gap:8px;
       background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.25);
-      border-radius:6px; padding:8px 16px; margin-bottom:12px;
+      border-radius:6px; padding:8px 16px; margin-bottom:16px;
       transition-delay:0.33s;
     ">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
@@ -399,18 +547,18 @@
 
     <!-- Stat callouts -->
     <div class="fade-up" style="
-      display:flex; justify-content:center; gap:40px;
-      margin-top:52px; flex-wrap:wrap;
+      display:flex; justify-content:center; gap:48px;
+      margin-top:64px; flex-wrap:wrap;
       transition-delay: 0.4s;
     ">
       <div style="text-align:center;">
-        <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.2rem); color:var(--volt); line-height:1;">£24k</div>
-        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">Lost yearly to<br>missed enquiries</div>
+        <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.2rem); color:var(--volt); line-height:1;" data-locale-key="lostYearly">£24k</div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">More revenue by never<br>missing an enquiry</div>
       </div>
       <div style="width:1px; background:var(--border); align-self:stretch;"></div>
       <div style="text-align:center;">
         <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.2rem); color:var(--volt); line-height:1;">12hrs</div>
-        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">Admin every<br>week</div>
+        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:8px; line-height:1.4;">Saved every week<br>on admin</div>
       </div>
       <div style="width:1px; background:var(--border); align-self:stretch;"></div>
       <div style="text-align:center;">
@@ -419,6 +567,248 @@
       </div>
     </div>
   </div>
+</section>
+<!-- ═══════════════════════════════ DEMO VIDEO ═══════════════════════════════ -->
+<section id="demo" style="
+  position:relative; z-index:1;
+  padding: 64px 24px 80px;
+  max-width: 740px; margin: 0 auto;
+">
+  <!-- Glow -->
+  <div style="
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:800px; height:800px; pointer-events:none;
+    background: radial-gradient(circle at 50% 50%, rgba(234,179,8,0.24) 0%, transparent 65%);
+    z-index:0;
+  "></div>
+
+  <div style="text-align:center; margin-bottom:36px;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
+      See It in Action
+    </div>
+    <h2 class="fade-up" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+      font-size:clamp(1.8rem,3vw,2.6rem); line-height:1.1; color:var(--text);
+      transition-delay:0.1s;
+    ">From message to reply, <span style="color:var(--volt);">hands&#8209;free</span></h2>
+    <p class="fade-up" style="font-size:0.9rem; color:var(--text-2); margin-top:12px; line-height:1.65; transition-delay:0.15s;">
+      See how ToolMate handles real conversations on your phone. Pick a scenario below.
+    </p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="fade-up" style="display:flex; justify-content:center; gap:8px; margin-bottom:28px;">
+    <button class="demo-tab demo-tab--active" data-tab="enquiry" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.03em;
+      padding:10px 22px; border-radius:80px; border:1.5px solid var(--border);
+      background:transparent; color:var(--text-2); cursor:pointer;
+      transition: all 0.25s ease;
+    ">Reply to an Enquiry</button>
+    <button class="demo-tab" data-tab="quote" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.03em;
+      padding:10px 22px; border-radius:80px; border:1.5px solid var(--border);
+      background:transparent; color:var(--text-2); cursor:pointer;
+      transition: all 0.25s ease;
+    ">Send a Quote</button>
+    <button class="demo-tab" data-tab="scheduling" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.03em;
+      padding:10px 22px; border-radius:80px; border:1.5px solid var(--border);
+      background:transparent; color:var(--text-2); cursor:pointer;
+      transition: all 0.25s ease;
+    ">Schedule a Job</button>
+  </div>
+
+  <!-- Tab panels -->
+  <div style="position:relative;">
+
+    <!-- Panel 1: Enquiry -->
+    <div class="demo-panel demo-panel--active" data-panel="enquiry" style="
+      display:flex; flex-direction:column; align-items:center; gap:24px;
+      transition: opacity 0.35s ease;
+    ">
+      <div class="demo-panel-inner" style="
+        display:flex; align-items:center; justify-content:center; gap:40px;
+        flex-direction:column;
+      ">
+        <div class="demo-phone" style="
+          position:relative; width:280px; flex-shrink:0;
+          border-radius:36px; overflow:hidden;
+          border:6px solid #1a1a1a;
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.4);
+          background:#000;
+        ">
+          <video class="demo-vid" autoplay muted playsinline preload="metadata"
+            style="width:100%; display:block; border-radius:30px;">
+            <source src="assets/enquiry-demo.mp4" type="video/mp4"/>
+            <source src="assets/Enquiry_from_emma_and_suggested_reply_being_sent.mov" type="video/quicktime"/>
+          </video>
+          <div class="demo-splash" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.85); border-radius:30px;
+            opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+          "><span style="font-family:'Barlow Semi Condensed',sans-serif;
+            font-weight:700; font-size:1.4rem; color:var(--volt); letter-spacing:0.02em;
+          ">Enquiry handled.</span></div>
+        </div>
+        <div class="demo-description" style="text-align:center; max-width:320px;">
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.15rem; color:var(--text); margin-bottom:10px;">Instant replies to customer enquiries</h3>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+            A customer asks about availability. ToolMate reads the message, drafts a friendly, professional reply and sends it to you for approval. All within WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2: Quote -->
+    <div class="demo-panel" data-panel="quote" style="
+      display:none; flex-direction:column; align-items:center; gap:24px;
+      opacity:0; transition: opacity 0.35s ease;
+    ">
+      <div class="demo-panel-inner" style="
+        display:flex; align-items:center; justify-content:center; gap:40px;
+        flex-direction:column;
+      ">
+        <div class="demo-phone" style="
+          position:relative; width:280px; flex-shrink:0;
+          border-radius:36px; overflow:hidden;
+          border:6px solid #1a1a1a;
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.4);
+          background:#000;
+        ">
+          <video class="demo-vid" muted playsinline preload="metadata"
+            style="width:100%; display:block; border-radius:30px;">
+            <source src="assets/quote-demo.mp4" type="video/mp4"/>
+            <source src="assets/Initial quote, and then fix and then requoting and sending.mov" type="video/quicktime"/>
+          </video>
+          <div class="demo-splash" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.85); border-radius:30px;
+            opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+          "><span style="font-family:'Barlow Semi Condensed',sans-serif;
+            font-weight:700; font-size:1.4rem; color:var(--volt); letter-spacing:0.02em;
+          ">Quote sent.</span></div>
+        </div>
+        <div class="demo-description" style="text-align:center; max-width:320px;">
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.15rem; color:var(--text); margin-bottom:10px;">Review, tweak and send quotes</h3>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+            ToolMate generates a quote based on the conversation. You review the price, tweak if needed, and approve. The customer gets a polished quote in seconds.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Scheduling -->
+    <div class="demo-panel" data-panel="scheduling" style="
+      display:none; flex-direction:column; align-items:center; gap:24px;
+      opacity:0; transition: opacity 0.35s ease;
+    ">
+      <div class="demo-panel-inner" style="
+        display:flex; align-items:center; justify-content:center; gap:40px;
+        flex-direction:column;
+      ">
+        <div class="demo-phone" style="
+          position:relative; width:280px; flex-shrink:0;
+          border-radius:36px; overflow:hidden;
+          border:6px solid #1a1a1a;
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.4);
+          background:#000;
+        ">
+          <video class="demo-vid" muted playsinline preload="metadata"
+            style="width:100%; display:block; border-radius:30px;">
+            <source src="assets/scheduling-demo.mp4" type="video/mp4"/>
+            <source src="assets/Automatic_scheduling_based_on_calendar_and.mov" type="video/quicktime"/>
+          </video>
+          <div class="demo-splash" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.85); border-radius:30px;
+            opacity:0; pointer-events:none; transition:opacity 0.6s ease;
+          "><span style="font-family:'Barlow Semi Condensed',sans-serif;
+            font-weight:700; font-size:1.4rem; color:var(--volt); letter-spacing:0.02em;
+          ">Job booked.</span></div>
+        </div>
+        <div class="demo-description" style="text-align:center; max-width:320px;">
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.15rem; color:var(--text); margin-bottom:10px;">Automatic scheduling from your calendar</h3>
+          <p style="font-size:0.85rem; color:var(--text-2); line-height:1.65;">
+            ToolMate checks your calendar, finds a slot that works, and offers it to the customer. You confirm, and the job is booked.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  (function(){
+    /* ── Splash overlay logic ── */
+    document.querySelectorAll('.demo-vid').forEach(function(v){
+      var s = v.parentElement.querySelector('.demo-splash');
+      if(!s) return;
+      v.addEventListener('timeupdate', function(){
+        s.style.opacity = (v.duration - v.currentTime <= 1.5) ? '1' : '0';
+      });
+      v.addEventListener('ended', function(){
+        setTimeout(function(){
+          s.style.opacity = '0';
+          v.currentTime = 0;
+          v.play();
+        }, 2000);
+      });
+    });
+
+    /* ── Tab switching ── */
+    var tabs = document.querySelectorAll('.demo-tab');
+    var panels = document.querySelectorAll('.demo-panel');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var target = tab.getAttribute('data-tab');
+
+        /* Update tab styles */
+        tabs.forEach(function(t){
+          t.classList.remove('demo-tab--active');
+          t.style.background = 'transparent';
+          t.style.color = 'var(--text-2)';
+          t.style.borderColor = 'var(--border)';
+        });
+        tab.classList.add('demo-tab--active');
+        tab.style.background = 'var(--volt)';
+        tab.style.color = '#000';
+        tab.style.borderColor = 'var(--volt)';
+
+        /* Swap panels — instant, no transition */
+        panels.forEach(function(p){
+          var vid = p.querySelector('.demo-vid');
+          if(p.getAttribute('data-panel') === target){
+            p.style.transition = 'none';
+            p.style.opacity = '1';
+            p.style.display = 'flex';
+            if(vid){ vid.currentTime = 0; vid.play(); }
+          } else {
+            p.style.transition = 'none';
+            p.style.opacity = '0';
+            p.style.display = 'none';
+            if(vid){ vid.pause(); vid.currentTime = 0; }
+            var splash = p.querySelector('.demo-splash');
+            if(splash) splash.style.opacity = '0';
+          }
+        });
+      });
+    });
+
+    /* Activate first tab on load */
+    var first = document.querySelector('.demo-tab--active');
+    if(first){
+      first.style.background = 'var(--volt)';
+      first.style.color = '#000';
+      first.style.borderColor = 'var(--volt)';
+    }
+  })();
+  </script>
 </section>
 <!-- ═══════════════════════════════ PROBLEM ═══════════════════════════════ -->
 <section id="problem" style="
@@ -436,118 +826,164 @@
       font-size: clamp(2.6rem,4.5vw,4.2rem); line-height:1.05;
       color:var(--text); transition-delay:0.1s;
     ">
-      You're losing work you never<br>knew you missed.
+      Your trade pays the bills.<br>Admin takes your time.
     </h2>
     <p class="fade-up" style="font-size:1rem; color:var(--text-2); margin-top:18px; max-width:640px; margin-left:auto; margin-right:auto; line-height:1.65; transition-delay:0.15s;">
-      UK tradespeople lose an average of £24,000 a year to enquiries that go unanswered while they're on the tools. That's before you count the evenings lost to admin that generate no revenue.
+      On top of a full day's work, there are messages to reply to, quotes to write, jobs to schedule, and invoices to chase. The admin never stops, even when you do.
     </p>
   </div>
 
-  <!-- 2×2 card grid -->
-  <div class="card-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
+  <!-- Problem accordion -->
+  <div class="fade-up" style="max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:12px;">
 
-    <!-- Card 1: Enquiries unanswered -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.1s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
+    <!-- Item 1: Enquiries unanswered -->
+    <details class="problem-item" open style="
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/></svg>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="
+            width:40px; height:40px; border-radius:8px;
+            background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+            Enquiries go unanswered
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          You're on the tools. A message arrives and by the time you see it, they've gone elsewhere. Leads are <strong style="color:var(--text);">21x more likely to convert</strong> if responded to within 5 minutes. From a rooftop, you can't.
+        </p>
+        <div style="
+          font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+          text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+          padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+          display:inline-block;
+        " data-locale-key="lostBadge">£24,000 lost per year on average</div>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        Enquiries go unanswered
-      </h3>
-      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
-        You're on the tools. A message arrives and by the time you see it, they've gone elsewhere. Leads are <strong style="color:var(--text);">21× more likely to convert</strong> if responded to within 5 minutes. From a rooftop, you can't.
-      </p>
-      <div style="
-        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
-        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
-        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
-        display:inline-block;
-      ">£24,000 lost per year on average</div>
-    </div>
+    </details>
 
-    <!-- Card 2: Evenings on admin -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.2s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
+    <!-- Item 2: Evenings on admin -->
+    <details class="problem-item" style="
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="
+            width:40px; height:40px; border-radius:8px;
+            background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+            Evenings eaten by admin
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          You get home and there are messages waiting: quotes to write, invoices to chase, bookings to confirm. Another hour of unpaid work before you can switch off.
+        </p>
+        <div style="
+          font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+          text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+          padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+          display:inline-block;
+        ">12 hours of admin every single week</div>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        Evenings eaten by admin
-      </h3>
-      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
-        You get home and there are messages waiting: quotes to write, invoices to chase, bookings to confirm. Another hour of unpaid work before you can switch off.
-      </p>
-      <div style="
-        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
-        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
-        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
-        display:inline-block;
-      ">12 hours of admin every single week</div>
-    </div>
+    </details>
 
-    <!-- Card 3: Quotes going cold -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.25s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
+    <!-- Item 3: Quotes going cold -->
+    <details class="problem-item" style="
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="
+            width:40px; height:40px; border-radius:8px;
+            background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+            Quotes go cold, money goes unpaid
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;" data-locale-key="unpaidProse" data-locale-mode="html">
+          UK small trade businesses are owed an average of <strong style="color:var(--text);">£8,500 in unpaid invoices</strong> at any given time. Each one requires 3-5 follow-up messages before it's resolved. That's admin that compounds the original problem and takes time you don't have.
+        </p>
+        <div style="
+          font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+          text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+          padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+          display:inline-block;
+        ">Unpaid quotes = cash flow problems</div>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        Quotes go cold, money goes unpaid
-      </h3>
-      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
-        UK small trade businesses are owed an average of <strong style="color:var(--text);">£8,500 in unpaid invoices</strong> at any given time. Each one requires 3–5 follow-up messages before it's resolved. That's admin that compounds the original problem and takes time you don't have.
-      </p>
-      <div style="
-        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
-        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
-        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
-        display:inline-block;
-      ">Unpaid quotes = cash flow problems</div>
-    </div>
+    </details>
 
-    <!-- Card 4: Tool sprawl -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.3s;">
-      <div style="
-        width:40px; height:40px; border-radius:8px;
-        background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
-        display:flex; align-items:center; justify-content:center;
-        margin-bottom:20px;
+    <!-- Item 4: Tool sprawl -->
+    <details class="problem-item" style="
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="
+            width:40px; height:40px; border-radius:8px;
+            background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin:0;">
+            No existing tool actually solves this
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;" data-locale-key="toolsProse" data-locale-mode="html">
+          Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">150,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don't care, but because nothing better was built for how they work.
+        </p>
+        <div style="
+          font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
+          text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
+          padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
+          display:inline-block;
+        ">Inadequate platform tools</div>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.3rem; color:var(--text); margin-bottom:10px;">
-        No existing tool actually solves this
-      </h3>
-      <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:18px;">
-        Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">150,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don't care, but because nothing better was built for how they work.
-      </p>
-      <div style="
-        font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:600;
-        text-transform:uppercase; letter-spacing:0.1em; color:var(--volt);
-        padding:6px 10px; background:rgba(234,179,8,0.07); border-radius:4px;
-        display:inline-block;
-      ">Inadequate platform tools</div>
-    </div>
+    </details>
+
   </div>
 
   <!-- Transition line -->
   <div class="fade-up" style="text-align:center; margin-top:52px;">
-    <p style="font-size:0.95rem; color:var(--text-2); font-style:italic;">
-      There's a smarter way. That's why we built ToolMate.
-    </p>
+    <p style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:600;
+      font-size:clamp(1.1rem,2vw,1.35rem); color:var(--text); line-height:1.3;
+    ">There's a smarter way. That's why we built <span style="color:var(--volt);">ToolMate</span>.</p>
   </div>
 </section>
 <!-- ═══════════════════════════════ HOW IT WORKS ═══════════════════════════════ -->
@@ -644,44 +1080,52 @@
 
     <!-- No new tools. No learning curve. -->
     <div class="fade-up" style="margin-top:72px; max-width:860px; margin-left:auto; margin-right:auto;">
-      <div style="
+      <details style="
         background:var(--surface); border:1px solid var(--border); border-radius:12px;
-        padding:48px 52px;
       ">
-        <div class="section-label" style="margin-bottom:20px;">No New Tools to Learn</div>
-        <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(1.6rem,2.5vw,2.2rem); color:var(--text); line-height:1.15; margin-bottom:16px;">
-          Works the way you already work.
-        </h3>
-        <p style="font-size:0.9rem; color:var(--text-2); line-height:1.75; margin-bottom:36px; max-width:560px;">
-          ToolMate slots into your existing setup. No new app to download, no dashboard to learn, no workflow to redesign. Think of it as a knowledgeable colleague who happens to be available around the clock: quietly handling the admin so you can focus on the job, and always ready when you need a hand.
-        </p>
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="no-new-tools-grid">
-          <div>
-            <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
-              Your WhatsApp. That's it.
-            </div>
-            <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
-              You already use WhatsApp every day. ToolMate lives there too. No login, no interface — just messages.
-            </p>
+        <summary style="
+          padding:32px 52px; cursor:pointer; list-style:none;
+          display:flex; align-items:center; justify-content:space-between; gap:16px;
+        ">
+          <div style="text-align:center; width:100%;">
+            <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(1.6rem,2.5vw,2.2rem); color:var(--text); line-height:1.15; margin:0;">
+              Works the way you already work.
+            </h3>
           </div>
-          <div>
-            <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
-              Nothing to install.
+          <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div style="padding:0 52px 48px;">
+          <p style="font-size:0.9rem; color:var(--text-2); line-height:1.75; margin-bottom:36px; max-width:560px;">
+            ToolMate slots into your existing setup. No new app to download, no dashboard to learn, no workflow to redesign. Think of it as a knowledgeable colleague who happens to be available around the clock: quietly handling the admin so you can focus on the job, and always ready when you need a hand.
+          </p>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="no-new-tools-grid">
+            <div>
+              <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
+                Your WhatsApp. That's it.
+              </div>
+              <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
+                You already use WhatsApp every day. ToolMate lives there too. No login, no new interface. Just messages.
+              </p>
             </div>
-            <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
-              Works on the phone in your pocket. No app store, no subscription software, no IT setup required.
-            </p>
-          </div>
-          <div>
-            <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
-              Up to speed from day one.
+            <div>
+              <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
+                Nothing to install.
+              </div>
+              <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
+                Works on the phone in your pocket. No app store, no subscription software, no IT setup required.
+              </p>
             </div>
-            <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
-              Tell ToolMate how you work and it gets to work. No training course. No onboarding curve. No wasted time.
-            </p>
+            <div>
+              <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:6px;">
+                Up to speed from day one.
+              </div>
+              <p style="font-size:0.83rem; color:var(--text-2); line-height:1.6;">
+                Tell ToolMate how you work and it gets to work. No training course. No onboarding curve. No wasted time.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
@@ -694,115 +1138,286 @@
   <!-- Section header -->
   <div style="text-align:center; margin-bottom:56px;">
     <div class="section-label fade-up" style="justify-content:center; margin-bottom:20px;">
-      What It Does
+      What it does
     </div>
     <h2 class="fade-up" style="
       font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
       font-size:clamp(2.4rem,4vw,4rem); line-height:1.05; color:var(--text);
       transition-delay:0.1s;
-    ">Your assistant. Your approval.<br>Every time.</h2>
+    ">Every step handled.<br>You just approve.</h2>
     <p class="fade-up" style="font-size:0.95rem; color:var(--text-2); margin-top:16px; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.65; transition-delay:0.15s;">
-      ToolMate proposes — you approve. Nothing goes to a customer without your sign-off. Over time, it learns how you work and becomes smarter.
+      From first message to repeat booking, ToolMate manages the admin at every stage. Nothing reaches a customer without your sign-off.
     </p>
   </div>
 
-  <!-- 3-category grouped layout -->
-  <div class="features-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+  <!-- Lifecycle accordion -->
+  <div id="lifecycle-accordion" class="fade-up" style="
+    max-width:640px; margin:0 auto;
+    display:flex; flex-direction:column; gap:0;
+    position:relative;
+  ">
+    <!-- Vertical timeline line -->
+    <div style="
+      position:absolute; left:19px; top:36px; bottom:36px;
+      width:2px; background:rgba(234,179,8,0.25); z-index:0;
+    "></div>
 
-    <!-- Category 1: Win More Work -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.1s;">
-      <div style="color:var(--teal); margin-bottom:20px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <!-- 1. Enquiry -->
+    <details class="lifecycle-item" open style="
+      position:relative; z-index:1;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+      ">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="lifecycle-circle" style="
+            width:40px; height:40px; border-radius:50%;
+            background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:var(--text); margin:0;">
+            1. Enquiry
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          A customer messages you on WhatsApp, email, SMS, or Instagram. ToolMate picks it up instantly and drafts a professional reply for your approval, whether it's 9 am or 11 pm.
+        </p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Qualifies the lead so you only spend time on real jobs
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Replies in your tone of voice, not a generic bot
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Handles emergency and out-of-hours calls
+          </li>
+        </ul>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.2rem; color:var(--text); margin-bottom:8px;">
-        Win More Work
-      </h3>
-      <p style="font-size:0.83rem; color:var(--text-2); line-height:1.65; margin-bottom:20px;">
-        Every text enquiry picked up, qualified, and ready for your review, whether it arrives at 9am or 11pm.
-      </p>
-      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          24/7 enquiry handling across WhatsApp, email, SMS, and Instagram
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Lead qualification before you spend time on a job
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Emergency and out-of-hours enquiry handling
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Schedule optimisation to cut dead mileage between jobs and ensure you make the most of every working day
-        </li>
-      </ul>
-    </div>
+    </details>
 
-    <!-- Category 2: Keep Work Moving -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.2s;">
-      <div style="color:var(--teal); margin-bottom:20px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    <!-- 2. Quote -->
+    <details class="lifecycle-item" style="
+      position:relative; z-index:1;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+      ">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="lifecycle-circle" style="
+            width:40px; height:40px; border-radius:50%;
+            background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:var(--text); margin:0;">
+            2. Quote
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          ToolMate drafts an itemised quote based on the unique job details. You review it, tweak it  if needed, and approve. Nothing goes out without your sign-off.
+        </p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Pulls in live supplier pricing for materials
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Chases unanswered quotes automatically in your voice
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Flags edge cases that need your personal judgement
+          </li>
+        </ul>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.2rem; color:var(--text); margin-bottom:8px;">
-        Keep Work Moving
-      </h3>
-      <p style="font-size:0.83rem; color:var(--text-2); line-height:1.65; margin-bottom:20px;">
-        Quotes drafted with live supplier pricing. Intelligent follow-ups teed up. Payment chased on your behalf.
-      </p>
-      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Itemised quotes drafted with live material prices for your approval
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Automatic follow-up on unanswered quotes, in your voice
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Invoice sent on completion, chased at 7, 14, and 30 days
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Flags you when a situation needs your personal attention
-        </li>
-      </ul>
-    </div>
+    </details>
 
-    <!-- Category 3: Build Your Reputation -->
-    <div class="card fade-up" style="padding:32px; transition-delay:0.3s;">
-      <div style="color:var(--teal); margin-bottom:20px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <!-- 3. Schedule -->
+    <details class="lifecycle-item" style="
+      position:relative; z-index:1;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+      ">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="lifecycle-circle" style="
+            width:40px; height:40px; border-radius:50%;
+            background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:var(--text); margin:0;">
+            3. Schedule
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          ToolMate finds an open slot in your calendar, proposes it to the customer, and books the job once you confirm. No back-and-forth texts to arrange a date.
+        </p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Groups nearby jobs to cut travel time between sites
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Sends the customer a booking confirmation instantly
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Reschedules automatically if your diary changes
+          </li>
+        </ul>
       </div>
-      <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.2rem; color:var(--text); margin-bottom:8px;">
-        Build Your Reputation
-      </h3>
-      <p style="font-size:0.83rem; color:var(--text-2); line-height:1.65; margin-bottom:20px;">
-        Systematic review collection, customer history, and proactive follow-up that turns one-off jobs into recurring work.
-      </p>
-      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Post-job review requests sent automatically to every customer
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Full customer history: address, jobs done, payment behaviour
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Proactive outreach for seasonal and recurring work
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--text-2); line-height:1.55;">
-          <span style="color:var(--volt); flex-shrink:0; margin-top:2px;">&#x2022;</span>
-          Consistent, professional communication on every interaction
-        </li>
-      </ul>
-    </div>
+    </details>
+
+    <!-- 4. Job Day -->
+    <details class="lifecycle-item" style="
+      position:relative; z-index:1;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+      ">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="lifecycle-circle" style="
+            width:40px; height:40px; border-radius:50%;
+            background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:var(--text); margin:0;">
+            4. Job Execution
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          You focus on the work. ToolMate handles everything around it. The customer gets a reminder before you arrive, and you get a briefing so nothing is missed on site.
+        </p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Morning summary with site notes and materials needed
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Customer gets an arrival-window notification
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Send photos or voice notes via WhatsApp to be logged against the job
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 5. Invoice & Payment -->
+    <details class="lifecycle-item" style="
+      position:relative; z-index:1;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+      ">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="lifecycle-circle" style="
+            width:40px; height:40px; border-radius:50%;
+            background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:var(--text); margin:0;">
+            5. Invoice &amp; Payment
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          Job done? ToolMate sends the invoice automatically. If payment doesn't arrive, it chases politely at 7, 14, and 30 days so you don't have to.
+        </p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Invoice sent on job completion
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Automated payment reminders at 7, 14, and 30 days
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Full customer payment history tracked
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 6. Reviews & Repeat Work -->
+    <details class="lifecycle-item" style="
+      position:relative; z-index:1;
+    ">
+      <summary style="
+        padding:16px 0; cursor:pointer; list-style:none;
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+      ">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="lifecycle-circle" style="
+            width:40px; height:40px; border-radius:50%;
+            background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:1.25rem; color:var(--text); margin:0;">
+            6. Reviews &amp; Repeat Work
+          </h3>
+        </div>
+        <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div style="padding:0 0 16px; margin-left:54px;">
+        <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
+          After every successful job, ToolMate sends a review request to the customer. It also keeps a full history of every customer and proactively reaches out when seasonal or recurring work is due.
+        </p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Automatic post-job review requests
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Customer history: jobs done, addresses, payment behaviour
+          </li>
+          <li style="display:flex; align-items:flex-start; gap:8px; font-size:0.83rem; color:var(--text-2); line-height:1.5;">
+            <span style="color:var(--volt); flex-shrink:0;">&#x2022;</span>Proactive outreach for seasonal and recurring work
+          </li>
+        </ul>
+      </div>
+    </details>
 
   </div>
+
+  <script>
+  (function(){
+    var items = document.querySelectorAll('#lifecycle-accordion .lifecycle-item');
+    items.forEach(function(item){
+      item.addEventListener('toggle', function(){
+        if(item.open){
+          items.forEach(function(other){
+            if(other !== item) other.removeAttribute('open');
+          });
+        }
+      });
+    });
+  })();
+  </script>
 
   <!-- Learning loop highlight -->
   <div class="fade-up" style="
@@ -859,7 +1474,7 @@
 
     <!-- Stat 1 -->
     <div class="fade-up" style="text-align:center; padding:0 24px; position:relative; transition-delay:0.05s;">
-      <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); color:var(--volt); line-height:1; margin-bottom:10px;">
+      <div style="font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); color:var(--volt); line-height:1; margin-bottom:10px;" data-locale-key="proofStat">
         £24,000
       </div>
       <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); line-height:1.5;">
@@ -900,6 +1515,58 @@
       </div>
     </div>
 
+  </div>
+</section>
+<!-- ═══════════════════════════════ FINAL CTA ═══════════════════════════════ -->
+<section id="cta" style="
+  position:relative; z-index:1;
+  padding: 120px 24px;
+  text-align:center;
+  overflow:hidden;
+">
+  <!-- Background volt glow -->
+  <div aria-hidden="true" style="
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:700px; height:400px; pointer-events:none;
+    background: radial-gradient(ellipse at center, rgba(234,179,8,0.08) 0%, transparent 65%);
+  "></div>
+
+  <div style="position:relative; max-width:640px; margin:0 auto;">
+    <div class="section-label fade-up" style="justify-content:center; margin-bottom:24px;">
+      Get Early Access
+    </div>
+    <h2 class="fade-up" style="
+      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+      font-size:clamp(2.2rem,4vw,4rem); line-height:1.05; color:var(--text);
+      margin-bottom:20px; transition-delay:0.1s;
+    ">
+      Ready to win more jobs<br>and get your evenings back?
+    </h2>
+    <p class="fade-up" style="
+      font-size:0.95rem; color:var(--text-2); line-height:1.65;
+      margin-bottom:36px; transition-delay:0.2s;
+    ">
+      Join the ToolMate waitlist today. Be first to get access when we launch and lock in a lifetime discount on every future plan.
+    </p>
+    <div class="fade-up" style="margin-bottom:16px; transition-delay:0.3s;">
+      <button class="btn-volt btn-volt-pulse open-modal" data-umami-event="cta-bottom-join-waitlist" style="font-size:1.05rem; padding:16px 44px;">
+        Join the Waitlist. It's Free.
+      </button>
+    </div>
+    <div class="fade-up" style="
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.25);
+      border-radius:6px; padding:8px 16px; margin-bottom:12px;
+      transition-delay:0.33s;
+    ">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal);">
+        Waitlist = lifetime discount on all plans
+      </span>
+    </div>
+    <p class="fade-up" style="font-size:0.8rem; color:var(--muted); transition-delay:0.35s;">
+      No credit card. No app to install. Takes 60 seconds.
+    </p>
   </div>
 </section>
 <!-- ═══════════════════════════════ FAQ ═══════════════════════════════ -->
@@ -972,7 +1639,7 @@
         <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--volt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="faq-body" style="max-height:0; overflow:hidden; transition:max-height 0.35s ease;">
-        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;">
+        <p style="padding:0 24px 20px; font-size:0.88rem; color:var(--text-2); line-height:1.7;" data-locale-key="faqPrivacy">
           Yes. ToolMate is fully GDPR compliant and all data is stored securely in the UK. We never share your customer data.
         </p>
       </div>
@@ -1016,58 +1683,6 @@
 
   </div>
 </section>
-<!-- ═══════════════════════════════ FINAL CTA ═══════════════════════════════ -->
-<section id="cta" style="
-  position:relative; z-index:1;
-  padding: 120px 24px;
-  text-align:center;
-  overflow:hidden;
-">
-  <!-- Background volt glow -->
-  <div aria-hidden="true" style="
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:700px; height:400px; pointer-events:none;
-    background: radial-gradient(ellipse at center, rgba(234,179,8,0.08) 0%, transparent 65%);
-  "></div>
-
-  <div style="position:relative; max-width:640px; margin:0 auto;">
-    <div class="section-label fade-up" style="justify-content:center; margin-bottom:24px;">
-      Get Early Access
-    </div>
-    <h2 class="fade-up" style="
-      font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
-      font-size:clamp(2.2rem,4vw,4rem); line-height:1.05; color:var(--text);
-      margin-bottom:20px; transition-delay:0.1s;
-    ">
-      Ready to win more jobs<br>and get your evenings back?
-    </h2>
-    <p class="fade-up" style="
-      font-size:0.95rem; color:var(--text-2); line-height:1.65;
-      margin-bottom:36px; transition-delay:0.2s;
-    ">
-      Join the ToolMate waitlist today. Be first to get access when we launch and lock in a lifetime discount on every future plan.
-    </p>
-    <div class="fade-up" style="margin-bottom:16px; transition-delay:0.3s;">
-      <button class="btn-volt btn-volt-pulse open-modal" data-umami-event="cta-bottom-join-waitlist" style="font-size:1.05rem; padding:16px 44px;">
-        Join the Waitlist. It's Free.
-      </button>
-    </div>
-    <div class="fade-up" style="
-      display:inline-flex; align-items:center; gap:8px;
-      background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.25);
-      border-radius:6px; padding:8px 16px; margin-bottom:12px;
-      transition-delay:0.33s;
-    ">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-      <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal);">
-        Waitlist = lifetime discount on all plans
-      </span>
-    </div>
-    <p class="fade-up" style="font-size:0.8rem; color:var(--muted); transition-delay:0.35s;">
-      No credit card. No app to install. Takes 60 seconds.
-    </p>
-  </div>
-</section>
   </main>
   <footer style="
   position: relative; z-index: 1;
@@ -1088,7 +1703,7 @@
             <text x="36" y="26" font-family="'Barlow Semi Condensed','Arial Narrow',sans-serif" font-weight="700" font-size="22" letter-spacing="0.5" fill="currentColor">TOOL<tspan fill="#EAB308">MATE</tspan></text>
           </svg>
         </div>
-        <p style="font-size:0.82rem; color:var(--text-2); line-height:1.6;">
+        <p style="font-size:0.82rem; color:var(--text-2); line-height:1.6;" data-locale-key="footerTagline" data-locale-mode="html">
           An AI admin assistant for UK tradespeople.<br>Operates entirely through WhatsApp.
         </p>
       </div>
@@ -1103,24 +1718,6 @@
         </div>
       </div>
 
-      <!-- Social -->
-      <div>
-        <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:14px;">Follow</div>
-        <div style="display:flex; gap:14px;">
-          <!-- Instagram -->
-          <a href="#" aria-label="Instagram" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <!-- Facebook -->
-          <a href="#" aria-label="Facebook" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <!-- LinkedIn -->
-          <a href="#" aria-label="LinkedIn" style="color:var(--text-2); transition:color 0.15s;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--text-2)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-        </div>
-      </div>
     </div>
 
     <!-- Bottom bar -->
@@ -1130,8 +1727,7 @@
       display:flex; justify-content:space-between; align-items:center;
       flex-wrap:wrap; gap:8px;
     ">
-      <span style="font-size:0.78rem; color:var(--muted);">© 2026 ToolMate · Built in the UK 🇬🇧</span>
-      <span style="font-size:0.78rem; color:var(--muted);">All rights reserved.</span>
+      <span style="font-size:0.78rem; color:var(--muted);" data-locale-key="footerBuilt">© 2026 ToolMate · Built in the UK 🇬🇧</span>
     </div>
   </div>
 </footer>
@@ -1262,7 +1858,7 @@
           Secure My Spot
         </button>
 
-        <p style="font-size:0.72rem; color:var(--muted); text-align:center; margin-top:12px;">
+        <p style="font-size:0.72rem; color:var(--muted); text-align:center; margin-top:12px;" data-locale-key="privacyNote">
           🔒 We never share your data. GDPR compliant.
         </p>
       </form>
@@ -1304,6 +1900,57 @@
   </div>
 </div>
 <script>
+  /* ─── LOCALISATION ─── */
+  (function() {
+    var rawCountry = new URLSearchParams(window.location.search).get('country') || window.__COUNTRY__ || 'GB';
+    var locales = window.__LOCALE__;
+    var map = window.__COUNTRY_MAP__ || {};
+    var localeKey = map[rawCountry] || rawCountry;
+    var locale = locales[localeKey] || locales['GB'];
+
+    // Lang attribute
+    document.documentElement.lang = locale.lang;
+
+    // Document title + meta tags
+    document.title = 'ToolMate \u2014 AI Assistant for ' + locale.titleSuffix;
+    var metaUpdates = {
+      'description':    locale.metaDesc,
+      'og:title':       'ToolMate \u2014 AI Assistant for ' + locale.titleSuffix,
+      'twitter:title':  'ToolMate \u2014 AI Assistant for ' + locale.titleSuffix
+    };
+    Object.keys(metaUpdates).forEach(function(key) {
+      var el = document.querySelector('meta[name="' + key + '"], meta[property="' + key + '"]');
+      if (el) el.setAttribute('content', metaUpdates[key]);
+    });
+
+    // Swap data-locale-key elements
+    document.querySelectorAll('[data-locale-key]').forEach(function(el) {
+      var key = el.getAttribute('data-locale-key');
+      if (!locale[key]) return;
+      if (el.getAttribute('data-locale-mode') === 'html') {
+        el.innerHTML = locale[key];
+      } else {
+        el.textContent = locale[key];
+      }
+    });
+
+    // Dial code default
+    var dialSelect = document.getElementById('field-dialcode');
+    if (dialSelect && locale.dialCode) {
+      dialSelect.value = locale.dialCode;
+    }
+
+    // Phone placeholder
+    var phoneInput = document.getElementById('field-whatsapp');
+    if (phoneInput && locale.phonePlaceholder) {
+      phoneInput.placeholder = locale.phonePlaceholder;
+    }
+
+    // Store active locale for modal reset and share URL
+    window.__ACTIVE_LOCALE__ = locale;
+    window.__SHARE_URL__ = locale.shareUrl;
+  })();
+
   /* ─── THEME ─── */
   function updateThemeIcons(theme) {
     var sun  = document.getElementById('icon-sun');
@@ -1418,6 +2065,15 @@
     if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Secure My Spot'; }
     document.getElementById('waitlist-form').reset();
 
+    // Re-apply localised dial code and placeholder after form reset
+    var locale = window.__ACTIVE_LOCALE__;
+    if (locale) {
+      var ds = document.getElementById('field-dialcode');
+      if (ds) ds.value = locale.dialCode;
+      var ph = document.getElementById('field-whatsapp');
+      if (ph) ph.placeholder = locale.phonePlaceholder;
+    }
+
     // then the existing open logic:
     overlay.style.display = 'flex';
     requestAnimationFrame(function() {
@@ -1509,7 +2165,8 @@
     var done = function() {
       formState.style.display = 'none';
       okState.style.display   = 'block';
-      var shareText = encodeURIComponent("I just joined the ToolMate waitlist — AI-powered admin for tradespeople, via WhatsApp. Check it out: https://toolmate.co.uk");
+      var shareUrl = window.__SHARE_URL__ || 'https://toolmate.co.uk';
+      var shareText = encodeURIComponent("I just joined the ToolMate waitlist \u2014 AI-powered admin for tradespeople, via WhatsApp. Check it out: " + shareUrl);
       document.getElementById('share-btn').href = 'https://wa.me/?text=' + shareText;
     };
 
