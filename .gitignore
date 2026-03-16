@@ -19,3 +19,4 @@ node_modules/
 # Netlify
 .netlify/
 .playwright-mcp
+email.gs
