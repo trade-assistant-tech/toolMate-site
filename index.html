@@ -182,6 +182,11 @@
       .hero-content > div:last-child > div[style*="width:1px"] { display: none; }
     }
 
+    .lifecycle-item .lifecycle-circle {
+      position:relative; z-index:2;
+      background:#1a170c !important;
+      box-shadow:0 0 0 6px var(--bg);
+    }
 
     @media (max-width: 900px) {
       .learning-loop-grid { grid-template-columns: 1fr !important; }
@@ -694,7 +699,7 @@
       background:var(--surface); border:1px solid var(--border); border-radius:12px;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
@@ -711,7 +716,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           You're on the tools. A message arrives and by the time you see it, they've gone elsewhere. Leads are <strong style="color:var(--text);">21x more likely to convert</strong> if responded to within 5 minutes. From a rooftop, you can't.
         </p>
@@ -729,7 +734,7 @@
       background:var(--surface); border:1px solid var(--border); border-radius:12px;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
@@ -746,7 +751,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           You get home and there are messages waiting: quotes to write, invoices to chase, bookings to confirm. Another hour of unpaid work before you can switch off.
         </p>
@@ -764,7 +769,7 @@
       background:var(--surface); border:1px solid var(--border); border-radius:12px;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
@@ -781,7 +786,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           UK small trade businesses are owed an average of <strong style="color:var(--text);">£8,500 in unpaid invoices</strong> at any given time. Each one requires 3-5 follow-up messages before it's resolved. That's admin that compounds the original problem and takes time you don't have.
         </p>
@@ -799,7 +804,7 @@
       background:var(--surface); border:1px solid var(--border); border-radius:12px;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
@@ -816,7 +821,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           Jobber and Tradify still need constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">150,000 trade businesses still run on WhatsApp and sticky notes.</strong> Not because they don't care, but because nothing better was built for how they work.
         </p>
@@ -1006,26 +1011,25 @@
   <!-- Lifecycle accordion -->
   <div id="lifecycle-accordion" class="fade-up" style="
     max-width:640px; margin:0 auto;
-    display:flex; flex-direction:column; gap:12px;
+    display:flex; flex-direction:column; gap:0;
     position:relative;
   ">
     <!-- Vertical timeline line -->
     <div style="
-      position:absolute; left:47px; top:36px; bottom:36px;
+      position:absolute; left:19px; top:36px; bottom:36px;
       width:2px; background:rgba(234,179,8,0.25); z-index:0;
     "></div>
 
     <!-- 1. Enquiry -->
     <details class="lifecycle-item" open style="
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
       position:relative; z-index:1;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
-          <div style="
+          <div class="lifecycle-circle" style="
             width:40px; height:40px; border-radius:50%;
             background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
             display:flex; align-items:center; justify-content:center; flex-shrink:0;
@@ -1038,7 +1042,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           A customer reaches out via WhatsApp, email, SMS, or Instagram. ToolMate picks it up instantly, qualifies the lead, and drafts a professional reply for your approval. Whether it's 9am or 11pm, no enquiry goes unanswered.
         </p>
@@ -1058,15 +1062,14 @@
 
     <!-- 2. Quote -->
     <details class="lifecycle-item" style="
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
       position:relative; z-index:1;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
-          <div style="
+          <div class="lifecycle-circle" style="
             width:40px; height:40px; border-radius:50%;
             background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
             display:flex; align-items:center; justify-content:center; flex-shrink:0;
@@ -1079,7 +1082,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           ToolMate drafts an itemised quote using live material prices. You review, tweak if needed, and approve. If the customer doesn't respond, ToolMate follows up automatically in your voice.
         </p>
@@ -1099,15 +1102,14 @@
 
     <!-- 3. Schedule -->
     <details class="lifecycle-item" style="
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
       position:relative; z-index:1;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
-          <div style="
+          <div class="lifecycle-circle" style="
             width:40px; height:40px; border-radius:50%;
             background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
             display:flex; align-items:center; justify-content:center; flex-shrink:0;
@@ -1120,7 +1122,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           ToolMate checks your calendar, finds a slot that works, and offers it to the customer. You confirm, and the job is booked. It optimises your route to cut dead mileage between jobs.
         </p>
@@ -1140,15 +1142,14 @@
 
     <!-- 4. Invoice & Payment -->
     <details class="lifecycle-item" style="
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
       position:relative; z-index:1;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
-          <div style="
+          <div class="lifecycle-circle" style="
             width:40px; height:40px; border-radius:50%;
             background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
             display:flex; align-items:center; justify-content:center; flex-shrink:0;
@@ -1161,7 +1162,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           Job done? ToolMate sends the invoice automatically. If payment doesn't arrive, it chases politely at 7, 14, and 30 days so you don't have to.
         </p>
@@ -1181,15 +1182,14 @@
 
     <!-- 5. Reviews & Repeat Work -->
     <details class="lifecycle-item" style="
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
       position:relative; z-index:1;
     ">
       <summary style="
-        padding:24px 28px; cursor:pointer; list-style:none;
+        padding:16px 0; cursor:pointer; list-style:none;
         display:flex; align-items:center; justify-content:space-between; gap:16px;
       ">
         <div style="display:flex; align-items:center; gap:14px;">
-          <div style="
+          <div class="lifecycle-circle" style="
             width:40px; height:40px; border-radius:50%;
             background:rgba(234,179,8,0.1); border:2px solid rgba(234,179,8,0.3);
             display:flex; align-items:center; justify-content:center; flex-shrink:0;
@@ -1202,7 +1202,7 @@
         </div>
         <svg class="details-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.3s ease;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div style="padding:0 28px 24px; padding-left:86px;">
+      <div style="padding:0 0 16px; margin-left:54px;">
         <p style="font-size:0.88rem; color:var(--text-2); line-height:1.65; margin-bottom:14px;">
           After every job, ToolMate sends a review request to the customer. It also keeps a full history of every customer and proactively reaches out when seasonal or recurring work is due.
         </p>
