@@ -347,7 +347,35 @@
       dialCode: "+353",
       phonePlaceholder: "087 123 4567",
       shareUrl: "https://toolmate.co.uk"
+    },
+    EU: {
+      lang: "en",
+      titleSuffix: "Tradespeople",
+      metaDesc: "ToolMate handles every text enquiry, quote, and follow-up for tradespeople. You review and approve from WhatsApp. Join the waitlist free.",
+      eyebrow: "Built for Tradespeople",
+      lostYearly: "\u20ac28k",
+      lostBadge: "\u20ac28,000 lost per year on average",
+      unpaidProse: 'Small trade businesses are owed an average of <strong style="color:var(--text);">\u20ac10,000 in unpaid invoices</strong> at any given time. Each one requires 3\u20135 follow-up messages before it\u2019s resolved. That\u2019s admin that compounds the original problem and takes time you don\u2019t have.',
+      toolsProse: 'Existing trade software still needs constant manual input. Generic AI has no trade knowledge. <strong style="color:var(--text);">Hundreds of thousands of trade businesses still run on WhatsApp and paper notes.</strong> Not because they don\u2019t care, but because nothing better was built for how they work.',
+      proofStat: "\u20ac28,000",
+      faqPrivacy: "Yes. ToolMate is fully GDPR compliant and all data is stored securely. We never share your customer data.",
+      footerTagline: "An AI admin assistant for tradespeople.<br>Operates entirely through WhatsApp.",
+      footerBuilt: "\u00a9 2026 ToolMate \u00b7 Serving Europe \ud83c\uddea\ud83c\uddfa",
+      privacyNote: "\ud83d\udd12 We never share your data. GDPR compliant.",
+      dialCode: "+33",
+      phonePlaceholder: "06 12 34 56 78",
+      shareUrl: "https://toolmate.co.uk"
     }
+  };
+
+  /* Map country codes to locale keys */
+  window.__COUNTRY_MAP__ = {
+    GB:"GB", US:"US", AU:"AU", CA:"CA", NZ:"NZ", IE:"IE",
+    FR:"EU", DE:"EU", NL:"EU", BE:"EU", ES:"EU", IT:"EU", PT:"EU",
+    AT:"EU", LU:"EU", FI:"EU", GR:"EU", MT:"EU", CY:"EU", SK:"EU",
+    SI:"EU", EE:"EU", LV:"EU", LT:"EU", HR:"EU",
+    SE:"EU", DK:"EU", NO:"EU", PL:"EU", CZ:"EU", HU:"EU", RO:"EU", BG:"EU",
+    CH:"EU"
   };
   </script>
 </head>
@@ -1874,9 +1902,11 @@
 <script>
   /* ─── LOCALISATION ─── */
   (function() {
-    var country = new URLSearchParams(window.location.search).get('country') || window.__COUNTRY__ || 'GB';
+    var rawCountry = new URLSearchParams(window.location.search).get('country') || window.__COUNTRY__ || 'GB';
     var locales = window.__LOCALE__;
-    var locale  = locales[country] || locales['GB'];
+    var map = window.__COUNTRY_MAP__ || {};
+    var localeKey = map[rawCountry] || rawCountry;
+    var locale = locales[localeKey] || locales['GB'];
 
     // Lang attribute
     document.documentElement.lang = locale.lang;
