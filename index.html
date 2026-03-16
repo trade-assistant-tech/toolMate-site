@@ -1426,7 +1426,7 @@
 <script>
   /* ─── LOCALISATION ─── */
   (function() {
-    var country = window.__COUNTRY__ || 'GB';
+    var country = new URLSearchParams(window.location.search).get('country') || window.__COUNTRY__ || 'GB';
     var locales = window.__LOCALE__;
     var locale  = locales[country] || locales['GB'];
 
@@ -1459,12 +1459,7 @@
     // Dial code default
     var dialSelect = document.getElementById('field-dialcode');
     if (dialSelect && locale.dialCode) {
-      for (var i = 0; i < dialSelect.options.length; i++) {
-        if (dialSelect.options[i].value === locale.dialCode) {
-          dialSelect.selectedIndex = i;
-          break;
-        }
-      }
+      dialSelect.value = locale.dialCode;
     }
 
     // Phone placeholder
@@ -1473,7 +1468,8 @@
       phoneInput.placeholder = locale.phonePlaceholder;
     }
 
-    // Store share URL for form submission
+    // Store active locale for modal reset and share URL
+    window.__ACTIVE_LOCALE__ = locale;
     window.__SHARE_URL__ = locale.shareUrl;
   })();
 
@@ -1590,6 +1586,15 @@
     var submitBtn = document.querySelector('#waitlist-form [type="submit"]');
     if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Secure My Spot'; }
     document.getElementById('waitlist-form').reset();
+
+    // Re-apply localised dial code and placeholder after form reset
+    var locale = window.__ACTIVE_LOCALE__;
+    if (locale) {
+      var ds = document.getElementById('field-dialcode');
+      if (ds) ds.value = locale.dialCode;
+      var ph = document.getElementById('field-whatsapp');
+      if (ph) ph.placeholder = locale.phonePlaceholder;
+    }
 
     // then the existing open logic:
     overlay.style.display = 'flex';
